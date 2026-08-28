@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="漫剧与动态漫热点样本浏览、题材筛选与开场钩子分析。">
+  <title>Manga Spark Radar · 漫剧热点抓取台</title>
+  <style>
+    :root{
+      --ink:#171816;--muted:#6f716b;--paper:#f4f1e9;--card:#fffdf8;--line:#d9d4c7;
+      --green:#154f42;--green-2:#257361;--acid:#d9ff66;--orange:#ff8b4a;--red:#d6523f;
+      --shadow:0 18px 55px rgba(37,42,32,.09);--radius:22px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.55 Inter,"PingFang SC","Microsoft YaHei",system-ui,sans-serif}
+    button,input,select{font:inherit}
+    button{color:inherit}
+    .shell{min-height:100vh}
+    aside{position:fixed;inset:0 auto 0 0;width:248px;padding:26px 18px;background:var(--green);color:#fff;z-index:20;overflow:auto}
+    .brand{display:flex;gap:12px;align-items:center;padding:0 8px 27px;border-bottom:1px solid #ffffff24}
+    .mark{width:42px;height:42px;display:grid;place-items:center;border-radius:13px;background:var(--acid);color:var(--green);font-size:20px;font-weight:900;transform:rotate(-4deg)}
+    .brand b{display:block;font-size:15px;letter-spacing:.2px}.brand small{color:#c5d8d0;font-size:10px;letter-spacing:1.2px}
+    .nav{display:grid;gap:6px;margin-top:22px}.nav button{border:0;background:transparent;color:#bfd2cb;border-radius:12px;padding:11px 12px;text-align:left;cursor:pointer}.nav button.active{background:#ffffff14;color:#fff}.nav button span{float:right;color:var(--acid)}
+    .strategy{margin-top:26px;padding:15px;border:1px solid #ffffff22;border-radius:16px;background:#0d4237}.strategy label{color:var(--acid);font-size:10px;font-weight:800;letter-spacing:1px}.strategy p{margin:7px 0 0;color:#d6e4df;font-size:12px}
+    .source-note{margin-top:18px;padding:0 8px;color:#9ab7ad;font-size:10px}.source-note a{color:#d8ff74}
+    main{margin-left:248px;padding:34px 38px 58px;max-width:1680px}
+    .hero{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;padding:30px;border-radius:28px;background:#fffdf8;border:1px solid var(--line);box-shadow:var(--shadow)}
+    .hero:after{content:"漫";position:absolute;right:250px;top:-62px;color:#154f4209;font-size:220px;font-weight:900;line-height:1;pointer-events:none}
+    .eyebrow{color:var(--green-2);font-size:10px;font-weight:900;letter-spacing:1.8px}.hero h1{margin:7px 0 8px;font-size:clamp(30px,4vw,54px);line-height:1.05;letter-spacing:-2px}.hero p{max-width:720px;margin:0;color:var(--muted);font-size:15px}
+    .freshness{position:relative;min-width:230px;padding:15px 16px;border-radius:16px;background:#fff5e7;border:1px solid #efc89c}.freshness b{display:block;color:#985527;font-size:12px}.freshness span{display:block;margin-top:4px;color:#826852;font-size:11px}.freshness button{margin-top:10px;padding:0;border:0;background:none;color:#a04b1f;text-decoration:underline;cursor:pointer;font-size:11px}
+    .toolbar{position:sticky;top:12px;z-index:10;display:flex;gap:10px;flex-wrap:wrap;margin:18px 0;padding:12px;border:1px solid var(--line);border-radius:18px;background:#f4f1e9e8;backdrop-filter:blur(14px)}
+    .search{position:relative;flex:1;min-width:250px}.search:before{content:"⌕";position:absolute;left:13px;top:8px;color:var(--muted);font-size:18px}.search input,select{height:42px;border:1px solid var(--line);border-radius:12px;background:var(--card);outline:none}.search input{width:100%;padding:0 14px 0 38px}.search input:focus,select:focus{border-color:var(--green-2);box-shadow:0 0 0 3px #25736118}select{padding:0 34px 0 12px;color:#565851}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 25px}.stat{padding:18px;border:1px solid var(--line);border-radius:18px;background:var(--card)}.stat label{color:var(--muted);font-size:11px}.stat strong{display:block;margin:4px 0 1px;font-size:28px;letter-spacing:-1px}.stat small{color:var(--green-2)}
+    .section-head{display:flex;justify-content:space-between;align-items:center;margin:0 0 12px}.section-head h2{margin:0;font-size:18px}.section-head span{color:var(--muted);font-size:11px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:15px}
+    .card{overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);background:var(--card);box-shadow:0 5px 20px rgba(32,36,28,.04);transition:transform .2s,border-color .2s,box-shadow .2s;cursor:pointer}
+    .card:hover{transform:translateY(-3px);border-color:#9bac91;box-shadow:var(--shadow)}
+    .cover{position:relative;aspect-ratio:16/9;overflow:hidden;background:#d8ddd5}.cover img{width:100%;height:100%;display:block;object-fit:cover;transition:transform .35s}.card:hover .cover img{transform:scale(1.035)}.cover:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 56%,#101510b8)}
+    .duration,.rank{position:absolute;z-index:2;bottom:10px;border-radius:7px;padding:3px 7px;font-size:10px;font-weight:800}.duration{right:10px;background:#101510d9;color:#fff}.rank{left:10px;background:var(--acid);color:#173b32}.rank.hot{background:var(--orange);color:#351308}
+    .content{padding:17px}.meta{display:flex;gap:7px;flex-wrap:wrap;align-items:center;color:var(--muted);font-size:10px}.dot{width:3px;height:3px;border-radius:50%;background:#a6aa9f}.content h3{margin:9px 0 4px;font-size:18px;line-height:1.25;letter-spacing:-.25px}.original{height:34px;overflow:hidden;color:#85877f;font-size:10px;line-height:1.35}
+    .tags{display:flex;gap:5px;flex-wrap:wrap;margin:11px 0}.tag{padding:3px 7px;border-radius:7px;background:#e7eee8;color:#285649;font-size:10px}.tag:nth-child(2){background:#f3e8da;color:#88522e}.tag:nth-child(3){background:#ece8f4;color:#5c4e7c}
+    .hook{min-height:56px;padding:10px 11px;border-left:3px solid var(--orange);border-radius:0 10px 10px 0;background:#f8f2e8;color:#50524d;font-size:12px}.hook b{color:var(--red)}
+    .foot{display:flex;justify-content:space-between;align-items:center;margin-top:13px}.watch{border:0;border-radius:10px;background:var(--green);color:#fff;padding:8px 11px;cursor:pointer;font-size:11px}.watch:hover{background:var(--green-2)}.score{color:#7a5a23;font-size:10px;font-weight:800}
+    .empty{grid-column:1/-1;padding:45px;text-align:center;border:1px dashed #aaa99f;border-radius:18px;color:var(--muted)}
+    .modal{display:none;position:fixed;inset:0;z-index:50;padding:22px;background:#10221ed9;place-items:center}.modal.show{display:grid}.dialog{width:min(920px,100%);max-height:92vh;overflow:auto;border-radius:24px;background:var(--card);box-shadow:0 30px 80px #07161277}.dialog-head{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;gap:20px;align-items:flex-start;padding:20px 22px;border-bottom:1px solid var(--line);background:#fffdf8f5;backdrop-filter:blur(12px)}.dialog-head h2{margin:4px 0 0;font-size:21px;line-height:1.25}.close{border:0;background:transparent;font-size:25px;cursor:pointer}.dialog-body{padding:20px 22px 25px}.player{aspect-ratio:16/9;overflow:hidden;border-radius:16px;background:#0f1815}.player iframe{width:100%;height:100%;border:0}.modal-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0;color:var(--muted);font-size:11px}.modal-meta a{color:var(--green-2)}
+    .diagnosis{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:15px}.diagnosis div{padding:13px;border-radius:13px;background:#eef1e9}.diagnosis label{display:block;color:var(--green-2);font-size:10px;font-weight:900}.diagnosis p{margin:5px 0 0;font-size:12px}.notice{margin-top:15px;padding:14px;border-radius:13px;background:#fff2df;border:1px solid #efcfaa;font-size:12px}.notice b{display:block;color:#914d22;margin-bottom:4px}
+    .update-panel{display:none;margin:0 0 18px;padding:18px;border:1px solid #efc89c;border-radius:18px;background:#fff5e7}.update-panel.show{display:block}.update-panel h2{margin:0 0 6px;font-size:16px}.update-panel p{margin:5px 0;color:#665a4f;font-size:12px}.update-panel code{padding:1px 5px;border-radius:5px;background:#eee5d9}
+    @media(max-width:980px){aside{position:static;width:auto}.brand{padding-bottom:16px}.nav,.strategy,.source-note{display:none}main{margin:0;padding:22px}.hero{grid-template-columns:1fr}.hero:after{right:10px}.stats{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:620px){main{padding:15px}.hero{padding:22px}.hero h1{letter-spacing:-1px}.toolbar{position:static}.stats{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.diagnosis{grid-template-columns:1fr}.dialog-head,.dialog-body{padding-left:15px;padding-right:15px}.original{height:auto}.freshness{min-width:0}}
+  </style>
+</head>
+<body>
+<div class="shell">
+  <aside>
+    <div class="brand"><div class="mark">漫</div><div><b>Manga Spark Radar</b><small>COMIC DRAMA INTELLIGENCE</small></div></div>
+    <nav class="nav"><button class="active">热点样本 <span>30</span></button><button>题材结构</button><button>开场钩子</button><button>来源频道</button></nav>
+    <div class="strategy"><label>本次抓取口径</label><p>英文配音动态漫 / 漫剧长视频；优先观察“系统、重生、末日、修仙、身份反转”五类高频包装。</p></div>
+    <div class="source-note">公开来源：<a href="https://www.youtube.com/@BaichuanComics/videos" target="_blank" rel="noreferrer">Baichuan Comics</a>、<a href="https://www.youtube.com/@Supreme-AnimeDrama/videos" target="_blank" rel="noreferrer">Supreme Anime Drama</a><br>采集快照：2026-08-28</div>
+  </aside>
+  <main>
+    <section class="hero">
+      <div><div class="eyebrow">OVERSEAS MANHUA / MOTION COMIC RADAR · 2026.08.28</div><h1>漫剧热点抓取台</h1><p>从真实公开频道样本中，快速筛出适合海外发行与买量拆解的动态漫题材、标题结构和开场承诺。</p></div>
+      <div class="freshness"><b>● 静态数据快照</b><span>不会自行每周更新；页面没有后台爬虫或定时任务。</span><button id="updateHelp" type="button">查看周更判断与改造条件</button></div>
+    </section>
+
+    <section id="updatePanel" class="update-panel" aria-live="polite">
+      <h2>周更判断：当前不会自动更新</h2>
+      <p>本页的 30 条数据固定写在 HTML 中。要实现真周更，需要“定时器 + 采集程序 + 数据写回 + 自动发布”四段链路；仅显示“每周刷新”文案并不等于已经更新。</p>
+      <p>推荐部署方案：GitHub Actions 每周运行采集脚本，读取两条频道 feed / 页面，生成 <code>snapshot.json</code>，提交后由 GitHub Pages 自动发布。若还要准确播放量与时长，应使用 YouTube Data API 或稳定的采集器。</p>
+    </section>
+
+    <section class="toolbar" aria-label="筛选工具">
+      <div class="search"><input id="search" type="search" placeholder="搜索中文标题、英文标题、题材或钩子…"></div>
+      <select id="source" aria-label="来源频道"><option value="all">全部来源</option><option value="Baichuan Comics">Baichuan Comics</option><option value="Supreme Anime Drama">Supreme Anime Drama</option></select>
+      <select id="theme" aria-label="题材"><option value="all">全部题材</option><option value="系统">系统</option><option value="末日">末日</option><option value="修仙">修仙</option><option value="重生">重生 / 穿越</option><option value="异兽">异兽进化</option></select>
+      <select id="length" aria-label="视频时长"><option value="all">任意时长</option><option value="short">45 分钟内</option><option value="medium">45–120 分钟</option><option value="long">120 分钟以上</option></select>
+      <select id="sort" aria-label="排序"><option value="latest">最新发布</option><option value="views">播放量最高</option><option value="hook">钩子估分最高</option><option value="duration">时长最长</option></select>
+    </section>
+
+    <section class="stats">
+      <div class="stat"><label>真实公开视频样本</label><strong id="statSamples">30</strong><small>两条英文漫剧频道</small></div>
+      <div class="stat"><label>最近 7 天发布</label><strong>20</strong><small>高频、长时内容供给</small></div>
+      <div class="stat"><label>高潜标题钩子</label><strong id="statHooks">25</strong><small>编辑估分 ≥ 86</small></div>
+      <div class="stat"><label>压倒性母题</label><strong>系统</strong><small>升级机制直接写进标题</small></div>
+    </section>
+
+    <div class="section-head"><h2>值得先看的漫剧样本</h2><span id="resultCount"></span></div>
+    <section id="grid" class="grid" aria-live="polite"></section>
+  </main>
+</div>
+
+<div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="dialog">
+    <div class="dialog-head"><div><div class="eyebrow">TITLE & HOOK BREAKDOWN</div><h2 id="modalTitle"></h2></div><button id="close" class="close" aria-label="关闭">×</button></div>
+    <div class="dialog-body"><div id="player" class="player"></div><div id="modalMeta" class="modal-meta"></div><div id="diagnosis" class="diagnosis"></div><div class="notice"><b>判断边界</b><span id="editorialNote"></span></div></div>
+  </div>
+</div>
+
+<script>
+const videos=[
+  {id:'mTGf9pgdoLU',title:'诸神嘲笑他的低阶仙位，系统却召来三位神祇反杀',original:'Gods mock his low immortal rank. His system calls 3 mythical gods to counterattack all! ⚔️💥',source:'Baichuan Comics',duration:7299,durationText:'2:01:39',views:76,age:'13 小时前',published:'2026-08-28',tags:['系统','修仙','反击'],score:91,hook:'受辱身份与三神降临形成一步到位的量级反转。',rise:'先给低阶仙位的群体嘲讽，再用系统召唤抬高战力天花板。',promise:'观众会等待三位神祇如何逐个碾压轻视者。'},
+  {id:'AKSWW4cGvvg',title:'兽潮席卷废土，吞噬系统让他进化成龙',original:'【P2】Beasts raid the ruined world. His devour system evolves him into a dragon to counterattack! 🐉',source:'Baichuan Comics',duration:7192,durationText:'1:59:52',views:150,age:'1 天前',published:'2026-08-27',tags:['末日','系统','异兽'],score:92,hook:'“废土生存 + 吞噬进化 + 化龙”连续给出三层爽点。',rise:'灾难先制造生存压力，吞噬机制把每次战斗都变成可见成长。',promise:'从弱小个体到龙形终局，升级路线非常明确。'},
+  {id:'k-ben8q55uk',title:'他因保护女孩被嘲，亮出仙裔身份斩杀古神',original:'Foes mock him for protecting a girl. He reveals his immortal heir status & slays ancient gods! ⚔️💥',source:'Baichuan Comics',duration:4299,durationText:'1:11:39',views:166,age:'5 天前',published:'2026-08-23',tags:['身份反转','修仙','护美'],score:89,hook:'道德选择先建立好感，仙裔身份随后完成公开打脸。',rise:'“保护弱者”让主角先吃亏，再以隐藏血脉翻盘。',promise:'身份暴露后，他与古神的战力差如何被重新定义。'},
+  {id:'ihBTuUZ0wNA',title:'无血脉忍者被当作废物，却在战争中走上弑神路',original:'ENG DUB | Mocked as a Bloodline-less Rogue Ninja—Now I Slay Gods in War | The Fantasy System',source:'Baichuan Comics',duration:1848,durationText:'30:48',views:131,age:'6 天前',published:'2026-08-22',tags:['系统','废柴逆袭','战争'],score:88,hook:'“无血脉废柴”与“战争弑神”构成极端身份落差。',rise:'把天赋羞辱压缩在开头，迅速交代系统带来的越级能力。',promise:'主角如何从体系外的人变成改写战争规则的人。'},
+  {id:'Lp8fBCELnS0',title:'困在无限梦境循环，系统允许他改写现实',original:'ENG DUB | Trapped in Infinite Dream Loop, My System Rewrites Reality to Break Fantasy Curse!',source:'Baichuan Comics',duration:1230,durationText:'20:30',views:138,age:'7 天前',published:'2026-08-21',tags:['系统','无限流','悬疑'],score:90,hook:'梦境循环制造即时谜题，“改写现实”则给出破局外挂。',rise:'先建立无法醒来的规则，再让主角发现规则可被编辑。',promise:'每次改写会付出什么代价，以及诅咒源头是谁。'},
+  {id:'ZcxUcAcEcZA',title:'反加班系统赐予无敌战力，他要轰碎腐朽仙帝',original:'ENG DUB | My Anti-Overtime System Grants Invincibility to Bomb the Corrupt Fantasy Emperor!#anime',source:'Baichuan Comics',duration:2491,durationText:'41:31',views:143,age:'9 天前',published:'2026-08-19',tags:['系统','反套路','修仙'],score:86,hook:'现代“反加班”情绪与仙侠权力结构碰撞，概念有记忆点。',rise:'现实痛点先拉近距离，再把反抗对象升级成仙帝。',promise:'职场规则如何被转译成修仙世界的战力规则。'},
+  {id:'LiKNqywx_U0',title:'穿越海洋末日，系统赐他活体巨兽吞噬敌人',original:'Traversing Fantasy Ocean Apocalypse, My System Gives Me a Living Beast to Eat All Enemies!',source:'Baichuan Comics',duration:3955,durationText:'1:05:55',views:248,age:'11 天前',published:'2026-08-17',tags:['末日','系统','异兽'],score:87,hook:'海洋末日提供稀缺场景，活体巨兽提供强视觉资产。',rise:'孤立海域限制资源，巨兽吞噬不断扩大安全边界。',promise:'巨兽会进化到何种形态，海下还藏着什么威胁。'},
+  {id:'bjieTAhBaBk',title:'被迫绑定末日后宫系统，致命女王替他横扫尸潮',original:'Forced Into a Fantasy Harem System in Apocalypse, Deadly Queens Slay Zombie Hordes for Me! #anime',source:'Baichuan Comics',duration:7765,durationText:'2:09:25',views:372,age:'12 天前',published:'2026-08-16',tags:['末日','系统','群像'],score:83,hook:'“被迫绑定”降低主动性，但女王军团与尸潮有明确奇观。',rise:'系统快速聚合强角色，以团队扩张对抗末日规模。',promise:'不同女王能力怎样组合，以及关系冲突如何反噬。'},
+  {id:'7icqVsxEGxs',title:'穿越商业末日，女王系统把濒死公司变成帝国',original:'Traversing to a Business Apocalypse, My Queen System Turned a Failing Firm Into a Fantasy Empire!',source:'Baichuan Comics',duration:8557,durationText:'2:22:37',views:190,age:'13 天前',published:'2026-08-15',tags:['系统','经营','逆袭'],score:84,hook:'把“末日”换成企业崩盘，经营升级线更接近现实爽点。',rise:'从现金流危机切入，用系统任务逐层扩大组织能力。',promise:'濒死公司如何击败行业巨头并建立新秩序。'},
+  {id:'fhR5xZQR1Y4',title:'他从火中救出诅咒之卵，海神系统孵出巨龙阻止海啸',original:'Saved a Cursed Egg From Fire! My Sea God System Hatched a Fantasy Dragon to Stop Tsunamis! #anime',source:'Baichuan Comics',duration:3063,durationText:'51:03',views:214,age:'2 周前',published:'2026-08-14',tags:['系统','异兽','灾难'],score:91,hook:'救蛋、孵龙、阻海啸三次升级都具有可视化转折。',rise:'善意选择触发系统奖励，局部救援迅速升级为世界灾难。',promise:'诅咒为何存在，幼龙怎样成长为足以挡海的力量。'},
+  {id:'36JeMI78JmU',title:'恋爱系统逼他攻略众人，他却只想抡锤击败敌人',original:'Bound to a Dating System in a Fantasy World, I Ignored Romance & Smashed Enemies With My Hammer!',source:'Baichuan Comics',duration:4313,durationText:'1:11:53',views:217,age:'2 周前',published:'2026-08-14',tags:['系统','反套路','喜剧'],score:86,hook:'拒绝执行系统目标，天然形成“规则与主角”之间的喜剧冲突。',rise:'系统不断抛出恋爱任务，主角用战斗手段错误完成。',promise:'他能否靠彻底跑偏的操作把恋爱系统玩成战斗外挂。'},
+  {id:'Fz9DKFRv_iU',title:'濒死星球上的奴隶，用草药系统把杂草炼成神药',original:'Traversing as a Dying Trash Planet Slave, My Herbal System Turns Weeds Into Fantasy Cures! #anime',source:'Baichuan Comics',duration:8807,durationText:'2:26:47',views:174,age:'2 周前',published:'2026-08-14',tags:['系统','经营','废土'],score:85,hook:'最低资源“杂草”变成最高价值“神药”，价值反转清楚。',rise:'奴隶身份压低起点，稀缺医疗资源让每次炼药都产生杠杆。',promise:'主角怎样通过药物控制资源、阶层与星球命运。'},
+  {id:'hom5r6iBndo',title:'穷宗主觉醒“花钱变强”系统，越败家越无敌',original:'【DUB】I’m a Penniless Sect Master, But My "Waste Money to Get Stronger" System is God-Tier! 🔥',source:'Baichuan Comics',duration:8808,durationText:'2:26:48',views:182,age:'2 周前',published:'2026-08-14',tags:['系统','修仙','反套路'],score:90,hook:'“穷”与“必须花钱”制造即刻矛盾，规则一句话就能听懂。',rise:'资源匮乏让首个任务变难，奖励又迫使主角持续扩大消费。',promise:'他会用什么离谱方式花钱，并把宗门带到多强。'},
+  {id:'YSgRF6c1CcM',title:'末日塔防系统封印鬼后，他要守住据点与同伴',original:'Traversing a Fantasy Apocalypse, My Tower Defense System Seals Ghost Empress & Wins 4 Beauties!',source:'Baichuan Comics',duration:6224,durationText:'1:43:44',views:247,age:'2 周前',published:'2026-08-14',tags:['末日','系统','塔防'],score:82,hook:'塔防规则天然适合连续关卡，但标题信息稍显拥挤。',rise:'先给据点倒计时，再用防御建筑和角色招募扩展战术。',promise:'下一波敌人会如何迫使主角升级防线。'},
+  {id:'ARYLkfv3bLI',title:'重生后只想躺平，咸鱼系统却触发凤凰天赋',original:'Reborn Just to Slack Off, My Slacker System Triggers Phoenix Talent to Rule Fantasy Cultivation!',source:'Baichuan Comics',duration:3917,durationText:'1:05:17',views:112,age:'2 周前',published:'2026-08-14',tags:['重生','系统','修仙'],score:89,hook:'“越躺平越强”把重生焦虑改造成反努力爽点。',rise:'主角拒绝内卷，系统奖励反而一次次证明他的选择正确。',promise:'当所有人逼他竞争时，躺平规则还能怎样制造碾压。'},
+  {id:'AMaKVVpIh1E',title:'疯魔对抗天道：他发现仙界只是一个牲畜围栏',original:'Madness Vs The Heaven: The Immortal Realm Is Just A Livestock Pen',source:'Supreme Anime Drama',duration:7573,durationText:'2:06:13',views:239,age:'15 小时前',published:'2026-08-28',tags:['修仙','世界真相','反天'],score:94,hook:'“仙界是牲畜围栏”一句话颠覆世界观，具备强点击冲击。',rise:'先让主角抵达终极目标，再立即揭示目标本身是骗局。',promise:'谁在圈养仙人，主角要如何反向狩猎天道。'},
+  {id:'32DMINCGEO0',title:'他从湮灭中归来，要碾碎神、魔与人间秩序',original:'Back From Oblivion: I Crush Gods, Devils, and the Mortal World S2',source:'Supreme Anime Drama',duration:7202,durationText:'2:00:02',views:376,age:'15 小时前',published:'2026-08-28',tags:['重生','复仇','修仙'],score:87,hook:'从“被抹除”到“三界复仇”，目标规模极大且直接。',rise:'用失去一切建立仇恨，再通过归来首战证明实力差。',promise:'主角被湮灭的原因，以及三界幕后共同的敌人。'},
+  {id:'fY_A7MMRpCw',title:'赛博弑神者重铸九大容器，夺回被改造的人生',original:'Cyber Godslayer: Reforging the Nine Vessels',source:'Supreme Anime Drama',duration:6566,durationText:'1:49:26',views:498,age:'16 小时前',published:'2026-08-28',tags:['赛博','弑神','升级'],score:88,hook:'赛博与修炼混搭，“九大容器”提供明确收集线。',rise:'身体缺陷成为首个危机，逐一重铸让成长可分章呈现。',promise:'每个容器对应什么能力，最终弑神需要付出什么代价。'},
+  {id:'HlwfPz5Cgho',title:'深渊铭文觉醒，炼金刺客从实验品走向复仇',original:'Abyss Inscription: Rise of the Alchemical Assassin',source:'Supreme Anime Drama',duration:21515,durationText:'5:58:35',views:1209,age:'1 天前',published:'2026-08-27',tags:['暗黑','复仇','炼金'],score:86,hook:'“炼金刺客”职业差异化明显，深渊铭文提供能力谜团。',rise:'实验创伤建立复仇动机，铭文觉醒提供第一轮能力展示。',promise:'主角身上的铭文是谁留下的，又会怎样侵蚀他。'},
+  {id:'MXF14LAcUj4',title:'炼体者拒绝天命，用拳头轰穿整个天界',original:'The Body Cultivator’s Rebellion: I Punch Through Heaven',source:'Supreme Anime Drama',duration:6867,durationText:'1:54:27',views:2470,age:'1 天前',published:'2026-08-27',tags:['修仙','反天','力量'],score:89,hook:'“一拳破天”是极简视觉承诺，力量路线没有理解门槛。',rise:'先证明主角无法使用主流法术，再让肉身力量越级生效。',promise:'纯粹力量能否打破由法则与天命构成的上限。'},
+  {id:'XYWu-9XBFIY',title:'觉醒的 NPC 找到漏洞，开始重写整个世界法则',original:'Game-Breaking NPC: I Rewrite the Laws of the World',source:'Supreme Anime Drama',duration:8177,durationText:'2:16:17',views:2457,age:'1 天前',published:'2026-08-27',tags:['系统','游戏','觉醒'],score:93,hook:'NPC 意识觉醒与“改写规则”组合，信息差非常集中。',rise:'从被玩家反复利用切入，让主角第一次拒绝脚本。',promise:'世界是真游戏还是更大牢笼，改写法则会触发谁的追杀。'},
+  {id:'jskU8qdj4EA',title:'极寒末日降临，御兽法师在冰封世界觉醒',original:'Extreme Cold Apocalypse: The Awakening of the Beast Taming Mage',source:'Supreme Anime Drama',duration:28283,durationText:'7:51:23',views:3023,age:'1 天前',published:'2026-08-27',tags:['末日','异兽','生存'],score:90,hook:'极寒灾难具有即时视觉压迫，御兽能力适合持续扩充资产。',rise:'温度倒计时先制造危机，首只契约兽承担破局与情感连接。',promise:'环境会冷到何种程度，兽群能否建立移动生存基地。'},
+  {id:'YaNEDPNDzd4',title:'武神解封，诸天本身都将成为他的力量燃料',original:'Martial God Unleashed: The Heavens Fuel My Power',source:'Supreme Anime Drama',duration:6408,durationText:'1:46:48',views:1659,age:'2 天前',published:'2026-08-26',tags:['修仙','武神','升级'],score:84,hook:'“以诸天为燃料”量级很大，但人物困境需要更早落地。',rise:'封印限制先形成障碍，再通过吸收世界能量逐层解锁。',promise:'无限吸收是否会毁掉诸天，主角会如何选择。'},
+  {id:'2BYng5SlmHI',title:'午夜都市传说成真，他发现每个禁忌都在找人',original:'Midnight Horror: The Urban Legends Are Real',source:'Supreme Anime Drama',duration:7684,durationText:'2:08:04',views:751,age:'2 天前',published:'2026-08-26',tags:['都市','恐怖','规则怪谈'],score:92,hook:'“传说成真”无需解释，午夜场景与禁忌规则适合短段落留钩。',rise:'先兑现一个熟悉传说，再揭示多个传说共享同一规则。',promise:'谁让传说实体化，主角能否利用规则反杀。'},
+  {id:'4W-HqkhvDwU',title:'御兽鉴定师能看见隐藏天赋，废兽在他手中全部翻身',original:'Beast Appraiser: My System Reveals Hidden Talents',source:'Supreme Anime Drama',duration:7464,durationText:'2:04:24',views:757,age:'2 天前',published:'2026-08-26',tags:['系统','异兽','鉴定'],score:88,hook:'人人看不起的废兽被重新估值，天然适合连续打脸。',rise:'公开鉴定制造群体误判，隐藏面板让主角获得唯一信息差。',promise:'下一只废兽会藏着什么神级天赋。'},
+  {id:'I0k3PyEtO1A',title:'虫群主宰觉醒 SSS 级天赋，从最弱虫卵开始扩张',original:'The Insect Overlord: Awakening of the SSS-Rank Master',source:'Supreme Anime Drama',duration:7807,durationText:'2:10:07',views:6646,age:'2 天前',published:'2026-08-26',tags:['异兽','虫群','SSS'],score:91,hook:'微小虫卵与主宰称号形成反差，群体扩张有强成长可视性。',rise:'从被轻视的低阶召唤物开始，以数量和变异打破等级判断。',promise:'虫群将进化出怎样的兵种与统治结构。'},
+  {id:'AJUWSSJWDK0',title:'魔祖陨落后，星际哨兵在废墟中重新觉醒',original:'Fall of the Demon Ancestor: Interstellar Sentinel Awakening',source:'Supreme Anime Drama',duration:6783,durationText:'1:53:03',views:3338,age:'3 天前',published:'2026-08-25',tags:['星际','重生','魔祖'],score:87,hook:'魔道与星际哨兵的类型混搭，比常规修仙更易形成视觉差异。',rise:'旧时代强者陨落，未来身份觉醒把两套能力体系接在一起。',promise:'魔祖记忆与哨兵职责会站在同一边还是互相冲突。'},
+  {id:'xvrOT_JvsNA',title:'毫无修为的宗主，全部力量却寄生在弟子身上',original:'Sect Master Without Cultivation: All Powers Belong To My Disciples',source:'Supreme Anime Drama',duration:7566,durationText:'2:06:06',views:928,age:'3 天前',published:'2026-08-25',tags:['系统','宗门','反套路'],score:91,hook:'“宗主无修为”与“弟子越强他越强”构成清晰经营机制。',rise:'先让宗主在公开场合暴露弱点，再由首位弟子反馈能力。',promise:'他会如何挑选奇葩弟子，把废宗养成最强势力。'},
+  {id:'s2mlkrsGPSU',title:'北境刀血未冷，覆灭烈士的最后后裔归来',original:'Blood Of The Northern Blade: The Last Scion of Fallen Martyrs',source:'Supreme Anime Drama',duration:16663,durationText:'4:37:43',views:2748,age:'3 天前',published:'2026-08-25',tags:['复仇','刀客','遗孤'],score:88,hook:'最后后裔、覆灭家族、北境之刀构成成熟复仇入口。',rise:'遗孤身份制造追杀，第一场拔刀则证明传承尚未断绝。',promise:'家族覆灭的真凶是谁，最后一刀为谁而留。'},
+  {id:'JUlnl7_zqQ4',title:'懒惰领主只想摸鱼，却靠“偷懒”建成无敌帝国',original:'Lazy Lord: My “Slacking” Builds an Unstoppable Empire',source:'Supreme Anime Drama',duration:7633,durationText:'2:07:13',views:4808,age:'4 天前',published:'2026-08-24',tags:['系统','经营','反套路'],score:93,hook:'“偷懒 = 建国”规则反常识，标题即可传达完整爽点。',rise:'领地濒临崩溃，主角每次回避工作却意外触发高效奖励。',promise:'当帝国越做越大，他还能用多离谱的方法继续躺平。'}
+];
+
+const $=id=>document.getElementById(id);
+const filters={search:$('search'),source:$('source'),theme:$('theme'),length:$('length'),sort:$('sort')};
+const formatViews=n=>n>=10000?`${(n/10000).toFixed(1)}万`:n.toLocaleString('zh-CN');
+const formatDuration=seconds=>seconds<=2700?'45 分钟内':seconds<=7200?'45–120 分钟':'120 分钟以上';
+function visibleVideos(){
+  const q=filters.search.value.trim().toLowerCase(),source=filters.source.value,theme=filters.theme.value,length=filters.length.value;
+  const rows=videos.filter(v=>{
+    const text=[v.title,v.original,v.source,v.hook,...v.tags].join(' ').toLowerCase();
+    const lengthMatch=length==='all'||length==='short'&&v.duration<=2700||length==='medium'&&v.duration>2700&&v.duration<=7200||length==='long'&&v.duration>7200;
+    return(!q||text.includes(q))&&(source==='all'||v.source===source)&&(theme==='all'||v.tags.includes(theme))&&lengthMatch;
+  });
+  const sort=filters.sort.value;
+  rows.sort((a,b)=>sort==='views'?b.views-a.views:sort==='hook'?b.score-a.score:sort==='duration'?b.duration-a.duration:new Date(b.published)-new Date(a.published)||b.views-a.views);
+  return rows;
+}
+function render(){
+  const rows=visibleVideos();
+  $('resultCount').textContent=`显示 ${rows.length} / ${videos.length} 条 · 数据采集于 2026-08-28`;
+  $('grid').innerHTML=rows.length?rows.map(v=>`<article class="card" data-id="${v.id}" tabindex="0" aria-label="查看 ${v.title}"><div class="cover"><img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="${v.title} 封面" loading="lazy"><span class="rank ${v.score>=92?'hot':''}">HOOK ${v.score}</span><span class="duration">${v.durationText}</span></div><div class="content"><div class="meta"><span>${v.source}</span><span class="dot"></span><span>${formatViews(v.views)} 次观看</span><span class="dot"></span><span>${v.age}</span></div><h3>${v.title}</h3><div class="original">${v.original}</div><div class="tags">${v.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div><div class="hook"><b>标题钩子 · </b>${v.hook}</div><div class="foot"><button class="watch" data-open="${v.id}">▶ 页内观看与拆解</button><span class="score">${formatDuration(v.duration)}</span></div></div></article>`).join(''):'<div class="empty">没有匹配样本，请减少筛选条件。</div>';
+}
+function openVideo(id){
+  const v=videos.find(x=>x.id===id);if(!v)return;
+  $('modalTitle').textContent=v.title;
+  $('player').innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&rel=0" title="${v.title}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+  $('modalMeta').innerHTML=`<span>${v.source}</span><span>·</span><span>${v.durationText}</span><span>·</span><span>${formatViews(v.views)} 次观看</span><span>·</span><span>${v.age}</span><a href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noreferrer">YouTube 原片 ↗</a>`;
+  $('diagnosis').innerHTML=`<div><label>01 · 起手矛盾</label><p>${v.hook}</p></div><div><label>02 · 升级路径</label><p>${v.rise}</p></div><div><label>03 · 留存承诺</label><p>${v.promise}</p></div>`;
+  $('editorialNote').textContent='钩子分与中文拆解是基于公开视频标题、封面和题材结构做的编辑判断，不等同于平台官方数据，也不替代完整剧情核验。';
+  $('modal').classList.add('show');document.body.style.overflow='hidden';
+}
+function closeModal(){$('modal').classList.remove('show');$('player').innerHTML='';document.body.style.overflow=''}
+Object.values(filters).forEach(el=>el.addEventListener(el===filters.search?'input':'change',render));
+$('grid').addEventListener('click',e=>{const id=e.target.closest('[data-open]')?.dataset.open||e.target.closest('.card')?.dataset.id;if(id)openVideo(id)});
+$('grid').addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.classList.contains('card')){e.preventDefault();openVideo(e.target.dataset.id)}});
+$('close').addEventListener('click',closeModal);$('modal').addEventListener('click',e=>{if(e.target===$('modal'))closeModal()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+$('updateHelp').addEventListener('click',()=>{$('updatePanel').classList.toggle('show');$('updatePanel').scrollIntoView({block:'center'})});
+$('statSamples').textContent=videos.length;
+$('statHooks').textContent=videos.filter(v=>v.score>=86).length;
+render();
+</script>
+</body>
+</html>
