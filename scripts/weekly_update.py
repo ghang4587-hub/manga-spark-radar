@@ -35,6 +35,7 @@ INDEX_PATH = SITE_ROOT / "index.html"
 CONFIG_PATH = SITE_ROOT / "config" / "channels.json"
 STORY_NODES_PATH = SITE_ROOT / "story_nodes.json"
 STORYBOARDS_PATH = SITE_ROOT / "storyboards.json"
+COVERS_DIR = SITE_ROOT / "assets" / "covers"
 USER_AGENT = "Mozilla/5.0 (compatible; MangaSparkRadarBot/1.0; +https://github.com/)"
 ATOM = "{http://www.w3.org/2005/Atom}"
 
@@ -69,6 +70,15 @@ def fetch_text(url: str, timeout: int = 12) -> str:
     try:
         with urllib.request.urlopen(request, timeout=timeout) as response:
             return response.read().decode("utf-8", "ignore")
+    except Exception as exc:  # pragma: no cover - depends on network
+        raise FetchError(str(exc)) from exc
+
+
+def fetch_bytes(url: str, timeout: int = 12) -> bytes:
+    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    try:
+        with urllib.request.urlopen(request, timeout=timeout) as response:
+            return response.read()
     except Exception as exc:  # pragma: no cover - depends on network
         raise FetchError(str(exc)) from exc
 
@@ -143,6 +153,87 @@ def parse_feed(xml_text: str, source: str, limit: int) -> list[dict]:
     return rows
 
 
+def walk_json(value):
+    if isinstance(value, dict):
+        yield value
+        for child in value.values():
+            yield from walk_json(child)
+    elif isinstance(value, list):
+        for child in value:
+            yield from walk_json(child)
+
+
+def renderer_text(value: dict | None) -> str:
+    if not isinstance(value, dict):
+        return ""
+    if isinstance(value.get("simpleText"), str):
+        return value["simpleText"]
+    if isinstance(value.get("content"), str):
+        return value["content"]
+    return "".join(run.get("text", "") for run in value.get("runs", []) if isinstance(run, dict))
+
+
+def relative_publish_date(value: str, today: dt.date) -> dt.date:
+    lowered = value.lower().strip()
+    match = re.search(r"(\d+)\s+(minute|hour|day|week|month|year)", lowered)
+    if not match:
+        return today
+    amount = int(match.group(1))
+    unit = match.group(2)
+    days = {"minute": 0, "hour": 0, "day": 1, "week": 7, "month": 30, "year": 365}[unit]
+    return today - dt.timedelta(days=amount * days)
+
+
+def parse_channel_page(page: str, source: str, limit: int, today: dt.date) -> list[dict]:
+    marker = "var ytInitialData = "
+    start = page.find(marker)
+    if start < 0:
+        raise FetchError("ytInitialData not found on channel page")
+    try:
+        data, _ = json.JSONDecoder().raw_decode(page[start + len(marker) :])
+    except json.JSONDecodeError as exc:
+        raise FetchError(f"invalid channel page data: {exc}") from exc
+
+    rows: list[dict] = []
+    seen: set[str] = set()
+    for node in walk_json(data):
+        renderer = node.get("videoRenderer")
+        if isinstance(renderer, dict):
+            video_id = renderer.get("videoId")
+            title = renderer_text(renderer.get("title"))
+            relative = renderer_text(renderer.get("publishedTimeText"))
+        else:
+            lockup = node.get("lockupViewModel")
+            if not isinstance(lockup, dict) or lockup.get("contentType") != "LOCKUP_CONTENT_TYPE_VIDEO":
+                continue
+            video_id = lockup.get("contentId")
+            metadata = lockup.get("metadata", {}).get("lockupMetadataViewModel", {})
+            title = renderer_text(metadata.get("title"))
+            parts = metadata.get("metadata", {}).get("contentMetadataViewModel", {}).get("metadataRows", [])
+            relative = ""
+            for part in walk_json(parts):
+                content = renderer_text(part.get("text"))
+                if " ago" in content.lower() or content.lower().startswith(("streamed ", "premiered ")):
+                    relative = content
+                    break
+        if not video_id or not title or video_id in seen:
+            continue
+        seen.add(video_id)
+        rows.append(
+            {
+                "id": video_id,
+                "original": html.unescape(title),
+                "source": source,
+                "published_date": relative_publish_date(relative, today),
+            }
+        )
+        if len(rows) >= limit:
+            break
+    if not rows:
+        raise FetchError("no videos found on channel page")
+    return rows
+
+
 def extract_json_string(page: str, key: str) -> str | None:
     match = re.search(rf'"{re.escape(key)}":"((?:\\.|[^"\\])*)"', page)
     if not match:
@@ -160,7 +251,9 @@ def watch_metadata(row: dict) -> tuple[dict | None, str]:
     except FetchError:
         return None, "error"
 
-    status_match = re.search(r'"playabilityStatus":\{"status":"([A-Z_]+)"', page)
+    playability_start = page.find('"playabilityStatus"')
+    playability = page[playability_start : playability_start + 5000] if playability_start >= 0 else ""
+    status_match = re.search(r'"status"\s*:\s*"([A-Z_]+)"', playability)
     status = status_match.group(1) if status_match else None
     if status and status != "OK":
         return None, "invalid"
@@ -178,7 +271,11 @@ def watch_metadata(row: dict) -> tuple[dict | None, str]:
         return None, "error"
 
     title = extract_json_string(page, "title") or row["original"]
-    return {**row, "original": html.unescape(title), "duration": duration, "views": views}, "ok"
+    published = parse_iso_date(extract_json_string(page, "publishDate") or extract_json_string(page, "uploadDate"))
+    metadata = {**row, "original": html.unescape(title), "duration": duration, "views": views}
+    if published:
+        metadata["published_date"] = published
+    return metadata, "ok"
 
 
 def existing_videos() -> list[dict]:
@@ -344,6 +441,7 @@ def update_snapshot_labels(source: str, snapshot: str) -> str:
     source = re.sub(r"最近一次快照：<span id=\"snapshotDate\">[^<]*</span>", f"最近一次快照：<span id=\"snapshotDate\">{snapshot}</span>", source, count=1)
     source = re.sub(r"<span id=\"snapshotDateHero\">[^<]*</span>", f"<span id=\"snapshotDateHero\">{snapshot.replace('-', '.')}</span>", source, count=1)
     source = re.sub(r"story_nodes\.json\?v=[^']+", f"story_nodes.json?v={snapshot}-zh", source, count=1)
+    source = re.sub(r"storyboards\.json\?v=[^']+", f"storyboards.json?v={snapshot}", source, count=1)
     return source
 
 
@@ -359,6 +457,24 @@ def prune_asset(path: Path, selected_ids: set[str]) -> None:
         path.write_text(json.dumps(trimmed, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
 
 
+def sync_covers(selected_ids: set[str]) -> None:
+    COVERS_DIR.mkdir(parents=True, exist_ok=True)
+    for cover in COVERS_DIR.glob("*.jpg"):
+        if cover.stem not in selected_ids:
+            cover.unlink()
+    for video_id in sorted(selected_ids):
+        destination = COVERS_DIR / f"{video_id}.jpg"
+        if destination.exists() and destination.stat().st_size >= 1500:
+            continue
+        try:
+            data = fetch_bytes(f"https://i.ytimg.com/vi/{video_id}/hqdefault.jpg")
+            if len(data) < 1500:
+                raise FetchError("thumbnail response is only a placeholder")
+            destination.write_bytes(data)
+        except FetchError as exc:
+            print(f"warning: cover {video_id}: {exc}", file=sys.stderr)
+
+
 def collect_candidates(config: dict, existing: list[dict], today: dt.date) -> list[dict]:
     pool_limit = int(config.get("pool_per_channel", 35))
     candidates: list[dict] = []
@@ -369,8 +485,13 @@ def collect_candidates(config: dict, existing: list[dict], today: dt.date) -> li
             feed = fetch_text(f"https://www.youtube.com/feeds/videos.xml?channel_id={urllib.parse.quote(channel_id)}")
             feed_rows = parse_feed(feed, channel["name"], pool_limit)
         except FetchError as exc:
-            print(f"warning: {channel.get('name', '?')}: {exc}", file=sys.stderr)
-            continue
+            print(f"warning: {channel.get('name', '?')} RSS: {exc}; trying channel page", file=sys.stderr)
+            try:
+                page = fetch_text(f"https://www.youtube.com/{channel['handle']}/videos")
+                feed_rows = parse_channel_page(page, channel["name"], pool_limit, today)
+            except (FetchError, KeyError) as page_exc:
+                print(f"warning: {channel.get('name', '?')} page: {page_exc}", file=sys.stderr)
+                continue
         for row in feed_rows:
             metadata, status = watch_metadata(row)
             if status == "invalid":
@@ -444,6 +565,7 @@ def main() -> int:
     selected_ids = {video["id"] for video in selected}
     prune_asset(STORY_NODES_PATH, selected_ids)
     prune_asset(STORYBOARDS_PATH, selected_ids)
+    sync_covers(selected_ids)
     recent = sum(
         (today - dt.date.fromisoformat(video["published"])).days <= int(config.get("recent_days", 7))
         for video in selected
