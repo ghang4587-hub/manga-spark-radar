@@ -57,17 +57,17 @@
     <div class="brand"><div class="mark">漫</div><div><b>Manga Spark Radar</b><small>COMIC DRAMA INTELLIGENCE</small></div></div>
     <nav class="nav"><button class="active">热点样本 <span>30</span></button><button>题材结构</button><button>开场钩子</button><button>来源频道</button></nav>
     <div class="strategy"><label>本次抓取口径</label><p>英文配音动态漫 / 漫剧长视频；优先观察“系统、重生、末日、修仙、身份反转”五类高频包装。</p></div>
-    <div class="source-note">公开来源：<a href="https://www.youtube.com/@BaichuanComics/videos" target="_blank" rel="noreferrer">Baichuan Comics</a>、<a href="https://www.youtube.com/@Supreme-AnimeDrama/videos" target="_blank" rel="noreferrer">Supreme Anime Drama</a><br>最近一次快照：<span id="snapshotDate">2026-08-28</span></div>
+    <div class="source-note">公开来源：<a href="https://www.youtube.com/@BaichuanComics/videos" target="_blank" rel="noreferrer">Baichuan Comics</a>、<a href="https://www.youtube.com/@Supreme-AnimeDrama/videos" target="_blank" rel="noreferrer">Supreme Anime Drama</a><br>最近一次快照：<span id="snapshotDate">2026-09-01</span></div>
   </aside>
   <main>
     <section class="hero">
-      <div><div class="eyebrow">OVERSEAS MANHUA / MOTION COMIC RADAR · <span id="snapshotDateHero">2026.08.28</span></div><h1>漫剧热点抓取台</h1><p>从真实公开频道样本中，快速筛出适合海外发行与买量拆解的动态漫题材、标题结构和开场承诺。</p></div>
+      <div><div class="eyebrow">OVERSEAS MANHUA / MOTION COMIC RADAR · <span id="snapshotDateHero">2026.09.01</span></div><h1>漫剧热点抓取台</h1><p>从真实公开频道样本中，快速筛出适合海外发行与买量拆解的动态漫题材、标题结构和开场承诺。</p></div>
       <div class="freshness"><b>● 已配置每周自动更新</b><span>固定 30 条；每周筛入新热门，并剔除不可播放或低播放样本。</span><button id="updateHelp" type="button">查看周更规则</button></div>
     </section>
 
     <section id="updatePanel" class="update-panel" aria-live="polite">
       <h2>周更规则：每周自动筛选 30 条</h2>
-      <p>GitHub Actions 每周一上午运行采集脚本，读取两条公开频道的 RSS 与视频页，先剔除不可播放、下架或需要登录的视频。</p>
+      <p>GitHub Actions 每周一上午运行采集脚本，读取两条公开频道的 RSS 或频道视频页，先剔除不可播放、下架或需要登录的视频。</p>
       <p>候选按“本周新发布优先 + 播放量 / 视频新鲜度”排序，保留固定 30 条；播放量较低的旧样本会被替换。更新后自动提交并由 GitHub Pages 发布。</p>
     </section>
 
@@ -108,7 +108,7 @@
 </div>
 
 <script>
-const DATA_SNAPSHOT='2026-08-28';
+const DATA_SNAPSHOT='2026-09-01';
 const videos=[
   {id:'mTGf9pgdoLU',title:'诸神嘲笑他的低阶仙位，系统却召来三位神祇反杀',original:'Gods mock his low immortal rank. His system calls 3 mythical gods to counterattack all! ⚔️💥',source:'Baichuan Comics',duration:7299,durationText:'2:01:39',views:76,age:'13 小时前',published:'2026-08-28',tags:['系统','修仙','反击'],score:91,hook:'受辱身份与三神降临形成一步到位的量级反转。',rise:'先给低阶仙位的群体嘲讽，再用系统召唤抬高战力天花板。',promise:'观众会等待三位神祇如何逐个碾压轻视者。'},
   {id:'AKSWW4cGvvg',title:'兽潮席卷废土，吞噬系统让他进化成龙',original:'【P2】Beasts raid the ruined world. His devour system evolves him into a dragon to counterattack! 🐉',source:'Baichuan Comics',duration:7192,durationText:'1:59:52',views:150,age:'1 天前',published:'2026-08-27',tags:['末日','系统','异兽'],score:92,hook:'“废土生存 + 吞噬进化 + 化龙”连续给出三层爽点。',rise:'灾难先制造生存压力，吞噬机制把每次战斗都变成可见成长。',promise:'从弱小个体到龙形终局，升级路线非常明确。'},
@@ -125,7 +125,7 @@ const videos=[
   {id:'hom5r6iBndo',title:'穷宗主觉醒“花钱变强”系统，越败家越无敌',original:'【DUB】I’m a Penniless Sect Master, But My "Waste Money to Get Stronger" System is God-Tier! 🔥',source:'Baichuan Comics',duration:8808,durationText:'2:26:48',views:182,age:'2 周前',published:'2026-08-14',tags:['系统','修仙','反套路'],score:90,hook:'“穷”与“必须花钱”制造即刻矛盾，规则一句话就能听懂。',rise:'资源匮乏让首个任务变难，奖励又迫使主角持续扩大消费。',promise:'他会用什么离谱方式花钱，并把宗门带到多强。'},
   {id:'YSgRF6c1CcM',title:'末日塔防系统封印鬼后，他要守住据点与同伴',original:'Traversing a Fantasy Apocalypse, My Tower Defense System Seals Ghost Empress & Wins 4 Beauties!',source:'Baichuan Comics',duration:6224,durationText:'1:43:44',views:247,age:'2 周前',published:'2026-08-14',tags:['末日','系统','塔防'],score:82,hook:'塔防规则天然适合连续关卡，但标题信息稍显拥挤。',rise:'先给据点倒计时，再用防御建筑和角色招募扩展战术。',promise:'下一波敌人会如何迫使主角升级防线。'},
   {id:'ARYLkfv3bLI',title:'重生后只想躺平，咸鱼系统却触发凤凰天赋',original:'Reborn Just to Slack Off, My Slacker System Triggers Phoenix Talent to Rule Fantasy Cultivation!',source:'Baichuan Comics',duration:3917,durationText:'1:05:17',views:112,age:'2 周前',published:'2026-08-14',tags:['重生','系统','修仙'],score:89,hook:'“越躺平越强”把重生焦虑改造成反努力爽点。',rise:'主角拒绝内卷，系统奖励反而一次次证明他的选择正确。',promise:'当所有人逼他竞争时，躺平规则还能怎样制造碾压。'},
-  {id:'AMaKVVpIh1E',title:'疯魔对抗天道：他发现仙界只是一个牲畜围栏',original:'Madness Vs The Heaven: The Immortal Realm Is Just A Livestock Pen',source:'Supreme Anime Drama',duration:7573,durationText:'2:06:13',views:239,age:'15 小时前',published:'2026-08-28',tags:['修仙','世界真相','反天'],score:94,hook:'“仙界是牲畜围栏”一句话颠覆世界观，具备强点击冲击。',rise:'先让主角抵达终极目标，再立即揭示目标本身是骗局。',promise:'谁在圈养仙人，主角要如何反向狩猎天道。'},
+  {id:'gLAuiRyxSFA',title:'怪兽进化系统觉醒，御兽师在异变地球统御万兽',original:'💥【NEW】Monster Evolution System ：Beast Tamer of the Changed Earth#anime#chineseanime#engdub',source:'Supreme Anime Drama',duration:7924,durationText:'2:12:04',views:18970,age:'1 天前',published:'2026-08-31',tags:['系统','末日','异兽'],score:96,hook:'“怪兽进化系统 + 异变地球”同时交代升级机制和末日舞台，视觉资产清晰。',rise:'先让异变怪兽打破旧秩序，再用首只契约兽展示可复制的进化路线。',promise:'观众会追看兽群如何连续变异，以及主角能否建立新的生存秩序。'},
   {id:'32DMINCGEO0',title:'他从湮灭中归来，要碾碎神、魔与人间秩序',original:'Back From Oblivion: I Crush Gods, Devils, and the Mortal World S2',source:'Supreme Anime Drama',duration:7202,durationText:'2:00:02',views:376,age:'15 小时前',published:'2026-08-28',tags:['重生','复仇','修仙'],score:87,hook:'从“被抹除”到“三界复仇”，目标规模极大且直接。',rise:'用失去一切建立仇恨，再通过归来首战证明实力差。',promise:'主角被湮灭的原因，以及三界幕后共同的敌人。'},
   {id:'fY_A7MMRpCw',title:'赛博弑神者重铸九大容器，夺回被改造的人生',original:'Cyber Godslayer: Reforging the Nine Vessels',source:'Supreme Anime Drama',duration:6566,durationText:'1:49:26',views:498,age:'16 小时前',published:'2026-08-28',tags:['赛博','弑神','升级'],score:88,hook:'赛博与修炼混搭，“九大容器”提供明确收集线。',rise:'身体缺陷成为首个危机，逐一重铸让成长可分章呈现。',promise:'每个容器对应什么能力，最终弑神需要付出什么代价。'},
   {id:'HlwfPz5Cgho',title:'深渊铭文觉醒，炼金刺客从实验品走向复仇',original:'Abyss Inscription: Rise of the Alchemical Assassin',source:'Supreme Anime Drama',duration:21515,durationText:'5:58:35',views:1209,age:'1 天前',published:'2026-08-27',tags:['暗黑','复仇','炼金'],score:86,hook:'“炼金刺客”职业差异化明显，深渊铭文提供能力谜团。',rise:'实验创伤建立复仇动机，铭文觉醒提供第一轮能力展示。',promise:'主角身上的铭文是谁留下的，又会怎样侵蚀他。'},
@@ -158,8 +158,8 @@ function audienceFor(v){
 }
 videos.forEach(v=>v.audience=audienceFor(v));
 let storyboardSpecs={},storyNodes={},currentVideoId='';
-const storyboardReady=fetch('./storyboards.json?v=20260828').then(response=>response.ok?response.json():Promise.reject()).then(data=>storyboardSpecs=data).catch(()=>storyboardSpecs={});
-const storyNodesReady=fetch('./story_nodes.json?v=20260901-zh').then(response=>response.ok?response.json():Promise.reject()).then(data=>storyNodes=data).catch(()=>storyNodes={});
+const storyboardReady=fetch('./storyboards.json?v=20260901-coverfix').then(response=>response.ok?response.json():Promise.reject()).then(data=>storyboardSpecs=data).catch(()=>storyboardSpecs={});
+const storyNodesReady=fetch('./story_nodes.json?v=20260901-coverfix').then(response=>response.ok?response.json():Promise.reject()).then(data=>storyNodes=data).catch(()=>storyNodes={});
 const storyboardImageCache=new Map();
 const escapeHtml=value=>String(value??'').replace(/[&<>\"']/g,character=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[character]));
 const fallbackNodeFor=(v,index)=>({seconds:Math.round(Math.max(0,v.duration-5)*[.02,.09,.18,.31,.43,.57,.66,.76,.88,.97][index]),type:'视觉候选',description:'未取得字幕；此处为画面转场候选，点击原片人工核验剧情。',source:'visual-fallback'});
@@ -232,7 +232,7 @@ function visibleVideos(){
 function render(){
   const rows=visibleVideos();
   $('resultCount').textContent=`显示 ${rows.length} / ${videos.length} 条 · 数据采集于 ${DATA_SNAPSHOT}`;
-  $('grid').innerHTML=rows.length?rows.map(v=>`<article class="card" data-id="${v.id}" tabindex="0" aria-label="查看 ${v.title}"><div class="cover"><img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="${v.title} 封面" loading="lazy">${isFresh(v)?'<span class="new-badge">近 7 日新样本</span>':''}<span class="rank ${v.score>=92?'hot':''}">HOOK ${v.score}</span><span class="duration">${v.durationText}</span></div><div class="content"><div class="meta"><span>${v.source}</span><span class="dot"></span><span>${formatViews(v.views)} 次观看</span><span class="dot"></span><span>${v.age}</span></div><h3>${v.title}</h3><div class="original">${v.original}</div><div class="tags">${v.tags.map(t=>`<span class="tag">${t}</span>`).join('')}<span class="tag audience">${audienceLabel(v.audience)}</span></div><div class="hook"><b>标题钩子 · </b>${v.hook}</div><div class="synopsis"><b>结构梗概</b><p>${v.rise} ${v.promise}</p></div><div class="foot"><button class="watch" data-open="${v.id}">▶ 十节点观看与拆解</button><span class="score">${formatDuration(v.duration)}</span></div></div></article>`).join(''):'<div class="empty">没有匹配样本，请减少筛选条件。</div>';
+  $('grid').innerHTML=rows.length?rows.map((v,index)=>`<article class="card" data-id="${v.id}" tabindex="0" aria-label="查看 ${v.title}"><div class="cover"><img src="./assets/covers/${v.id}.jpg" data-fallback="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" onerror="if(this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback=''}" alt="${v.title} 封面" loading="eager" decoding="async" fetchpriority="${index<8?'high':'auto'}">${isFresh(v)?'<span class="new-badge">近 7 日新样本</span>':''}<span class="rank ${v.score>=92?'hot':''}">HOOK ${v.score}</span><span class="duration">${v.durationText}</span></div><div class="content"><div class="meta"><span>${v.source}</span><span class="dot"></span><span>${formatViews(v.views)} 次观看</span><span class="dot"></span><span>${v.age}</span></div><h3>${v.title}</h3><div class="original">${v.original}</div><div class="tags">${v.tags.map(t=>`<span class="tag">${t}</span>`).join('')}<span class="tag audience">${audienceLabel(v.audience)}</span></div><div class="hook"><b>标题钩子 · </b>${v.hook}</div><div class="synopsis"><b>结构梗概</b><p>${v.rise} ${v.promise}</p></div><div class="foot"><button class="watch" data-open="${v.id}">▶ 十节点观看与拆解</button><span class="score">${formatDuration(v.duration)}</span></div></div></article>`).join(''):'<div class="empty">没有匹配样本，请减少筛选条件。</div>';
 }
 function openVideo(id){
   const v=videos.find(x=>x.id===id);if(!v)return;
