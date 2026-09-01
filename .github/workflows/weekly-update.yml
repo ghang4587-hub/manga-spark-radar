@@ -1,0 +1,42 @@
+name: Weekly Manga Spark Radar refresh
+
+on:
+  schedule:
+    # 08:00 Asia/Shanghai every Monday (00:00 UTC).
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: manga-spark-radar-weekly
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out site
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Select 30 playable, popular samples
+        run: python scripts/weekly_update.py
+
+      - name: Commit only when the snapshot changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html story_nodes.json storyboards.json
+          if git diff --cached --quiet; then
+            echo "No weekly changes to publish."
+          else
+            git commit -m "chore: refresh weekly manga radar sample"
+            git push
+          fi
