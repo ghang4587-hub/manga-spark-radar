@@ -57,18 +57,18 @@
     <div class="brand"><div class="mark">漫</div><div><b>Manga Spark Radar</b><small>COMIC DRAMA INTELLIGENCE</small></div></div>
     <nav class="nav"><button class="active">热点样本 <span>30</span></button><button>题材结构</button><button>开场钩子</button><button>来源频道</button></nav>
     <div class="strategy"><label>本次抓取口径</label><p>英文配音动态漫 / 漫剧长视频；优先观察“系统、重生、末日、修仙、身份反转”五类高频包装。</p></div>
-    <div class="source-note">公开来源：<a href="https://www.youtube.com/@BaichuanComics/videos" target="_blank" rel="noreferrer">Baichuan Comics</a>、<a href="https://www.youtube.com/@Supreme-AnimeDrama/videos" target="_blank" rel="noreferrer">Supreme Anime Drama</a><br>采集快照：2026-08-28</div>
+    <div class="source-note">公开来源：<a href="https://www.youtube.com/@BaichuanComics/videos" target="_blank" rel="noreferrer">Baichuan Comics</a>、<a href="https://www.youtube.com/@Supreme-AnimeDrama/videos" target="_blank" rel="noreferrer">Supreme Anime Drama</a><br>最近一次快照：<span id="snapshotDate">2026-08-28</span></div>
   </aside>
   <main>
     <section class="hero">
-      <div><div class="eyebrow">OVERSEAS MANHUA / MOTION COMIC RADAR · 2026.08.28</div><h1>漫剧热点抓取台</h1><p>从真实公开频道样本中，快速筛出适合海外发行与买量拆解的动态漫题材、标题结构和开场承诺。</p></div>
-      <div class="freshness"><b>● 静态数据快照</b><span>20 条近 7 日新样本；不会自行每周更新。</span><button id="updateHelp" type="button">查看周更判断与改造条件</button></div>
+      <div><div class="eyebrow">OVERSEAS MANHUA / MOTION COMIC RADAR · <span id="snapshotDateHero">2026.08.28</span></div><h1>漫剧热点抓取台</h1><p>从真实公开频道样本中，快速筛出适合海外发行与买量拆解的动态漫题材、标题结构和开场承诺。</p></div>
+      <div class="freshness"><b>● 已配置每周自动更新</b><span>固定 30 条；每周筛入新热门，并剔除不可播放或低播放样本。</span><button id="updateHelp" type="button">查看周更规则</button></div>
     </section>
 
     <section id="updatePanel" class="update-panel" aria-live="polite">
-      <h2>周更判断：当前不会自动更新</h2>
-      <p>本页的 30 条数据固定写在 HTML 中。要实现真周更，需要“定时器 + 采集程序 + 数据写回 + 自动发布”四段链路；仅显示“每周刷新”文案并不等于已经更新。</p>
-      <p>推荐部署方案：GitHub Actions 每周运行采集脚本，读取两条频道 feed / 页面，生成 <code>snapshot.json</code>，提交后由 GitHub Pages 自动发布。若还要准确播放量与时长，应使用 YouTube Data API 或稳定的采集器。</p>
+      <h2>周更规则：每周自动筛选 30 条</h2>
+      <p>GitHub Actions 每周一上午运行采集脚本，读取两条公开频道的 RSS 与视频页，先剔除不可播放、下架或需要登录的视频。</p>
+      <p>候选按“本周新发布优先 + 播放量 / 视频新鲜度”排序，保留固定 30 条；播放量较低的旧样本会被替换。更新后自动提交并由 GitHub Pages 发布。</p>
     </section>
 
     <section class="toolbar" aria-label="筛选工具">
@@ -81,8 +81,8 @@
     </section>
 
     <section class="stats">
-      <div class="stat"><label>真实公开视频样本</label><strong id="statSamples">30</strong><small>两条频道 · 每条含十个剧情节点</small></div>
-      <div class="stat"><label>最近 7 天发布</label><strong>20</strong><small>高频、长时内容供给</small></div>
+      <div class="stat"><label>固定样本量</label><strong id="statSamples">30</strong><small>自动剔除不可播放与低播放样本</small></div>
+      <div class="stat"><label>近 7 天新样本</label><strong id="statFresh">0</strong><small>每周从公开频道候选中补入</small></div>
       <div class="stat"><label>高潜标题钩子</label><strong id="statHooks">25</strong><small>编辑估分 ≥ 86</small></div>
       <div class="stat"><label>压倒性母题</label><strong>系统</strong><small>升级机制直接写进标题</small></div>
     </section>
@@ -108,6 +108,7 @@
 </div>
 
 <script>
+const DATA_SNAPSHOT='2026-08-28';
 const videos=[
   {id:'mTGf9pgdoLU',title:'诸神嘲笑他的低阶仙位，系统却召来三位神祇反杀',original:'Gods mock his low immortal rank. His system calls 3 mythical gods to counterattack all! ⚔️💥',source:'Baichuan Comics',duration:7299,durationText:'2:01:39',views:76,age:'13 小时前',published:'2026-08-28',tags:['系统','修仙','反击'],score:91,hook:'受辱身份与三神降临形成一步到位的量级反转。',rise:'先给低阶仙位的群体嘲讽，再用系统召唤抬高战力天花板。',promise:'观众会等待三位神祇如何逐个碾压轻视者。'},
   {id:'AKSWW4cGvvg',title:'兽潮席卷废土，吞噬系统让他进化成龙',original:'【P2】Beasts raid the ruined world. His devour system evolves him into a dragon to counterattack! 🐉',source:'Baichuan Comics',duration:7192,durationText:'1:59:52',views:150,age:'1 天前',published:'2026-08-27',tags:['末日','系统','异兽'],score:92,hook:'“废土生存 + 吞噬进化 + 化龙”连续给出三层爽点。',rise:'灾难先制造生存压力，吞噬机制把每次战斗都变成可见成长。',promise:'从弱小个体到龙形终局，升级路线非常明确。'},
@@ -147,7 +148,7 @@ const formatViews=n=>n>=10000?`${(n/10000).toFixed(1)}万`:n.toLocaleString('zh-
 const formatDuration=seconds=>seconds<=2700?'45 分钟内':seconds<=7200?'45–120 分钟':'120 分钟以上';
 const formatTime=seconds=>seconds>=3600?`${Math.floor(seconds/3600)}:${String(Math.floor(seconds%3600/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`:`${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`;
 const audienceLabel=value=>value==='female'?'女频向':value==='male'?'男频向':'中性待判';
-const isFresh=v=>new Date(v.published)>=new Date('2026-08-21T00:00:00');
+const isFresh=v=>{const published=new Date(`${v.published}T00:00:00`);const age=Date.now()-published.getTime();return Number.isFinite(age)&&age>=0&&age<=7*864e5};
 function audienceFor(v){
   const text=`${v.title} ${v.original}`.toLowerCase();
   if(/\b(she|her|girl|woman|queen)\b|她|女孩|女主/.test(text)&&!/my queen system|deadly queens/.test(text))return'female';
@@ -158,7 +159,7 @@ function audienceFor(v){
 videos.forEach(v=>v.audience=audienceFor(v));
 let storyboardSpecs={},storyNodes={},currentVideoId='';
 const storyboardReady=fetch('./storyboards.json?v=20260828').then(response=>response.ok?response.json():Promise.reject()).then(data=>storyboardSpecs=data).catch(()=>storyboardSpecs={});
-const storyNodesReady=fetch('./story_nodes.json?v=20260828').then(response=>response.ok?response.json():Promise.reject()).then(data=>storyNodes=data).catch(()=>storyNodes={});
+const storyNodesReady=fetch('./story_nodes.json?v=20260901-zh').then(response=>response.ok?response.json():Promise.reject()).then(data=>storyNodes=data).catch(()=>storyNodes={});
 const storyboardImageCache=new Map();
 const escapeHtml=value=>String(value??'').replace(/[&<>\"']/g,character=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[character]));
 const fallbackNodeFor=(v,index)=>({seconds:Math.round(Math.max(0,v.duration-5)*[.02,.09,.18,.31,.43,.57,.66,.76,.88,.97][index]),type:'视觉候选',description:'未取得字幕；此处为画面转场候选，点击原片人工核验剧情。',source:'visual-fallback'});
@@ -230,7 +231,7 @@ function visibleVideos(){
 }
 function render(){
   const rows=visibleVideos();
-  $('resultCount').textContent=`显示 ${rows.length} / ${videos.length} 条 · 数据采集于 2026-08-28`;
+  $('resultCount').textContent=`显示 ${rows.length} / ${videos.length} 条 · 数据采集于 ${DATA_SNAPSHOT}`;
   $('grid').innerHTML=rows.length?rows.map(v=>`<article class="card" data-id="${v.id}" tabindex="0" aria-label="查看 ${v.title}"><div class="cover"><img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="${v.title} 封面" loading="lazy">${isFresh(v)?'<span class="new-badge">近 7 日新样本</span>':''}<span class="rank ${v.score>=92?'hot':''}">HOOK ${v.score}</span><span class="duration">${v.durationText}</span></div><div class="content"><div class="meta"><span>${v.source}</span><span class="dot"></span><span>${formatViews(v.views)} 次观看</span><span class="dot"></span><span>${v.age}</span></div><h3>${v.title}</h3><div class="original">${v.original}</div><div class="tags">${v.tags.map(t=>`<span class="tag">${t}</span>`).join('')}<span class="tag audience">${audienceLabel(v.audience)}</span></div><div class="hook"><b>标题钩子 · </b>${v.hook}</div><div class="synopsis"><b>结构梗概</b><p>${v.rise} ${v.promise}</p></div><div class="foot"><button class="watch" data-open="${v.id}">▶ 十节点观看与拆解</button><span class="score">${formatDuration(v.duration)}</span></div></div></article>`).join(''):'<div class="empty">没有匹配样本，请减少筛选条件。</div>';
 }
 function openVideo(id){
@@ -254,6 +255,9 @@ $('grid').addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.ta
 $('close').addEventListener('click',closeModal);$('modal').addEventListener('click',e=>{if(e.target===$('modal'))closeModal()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 $('updateHelp').addEventListener('click',()=>{$('updatePanel').classList.toggle('show');$('updatePanel').scrollIntoView({block:'center'})});
 $('statSamples').textContent=videos.length;
+$('statFresh').textContent=videos.filter(isFresh).length;
+$('snapshotDate').textContent=DATA_SNAPSHOT;
+$('snapshotDateHero').textContent=DATA_SNAPSHOT.replaceAll('-','.');
 $('statHooks').textContent=videos.filter(v=>v.score>=86).length;
 render();
 </script>
