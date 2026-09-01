@@ -16,6 +16,7 @@
 - 周更配置：`config/channels.json`（频道、样本量、低播放阈值）
 - 周更脚本：`scripts/weekly_update.py`（RSS 发现、可播放性检查、播放量排序、写回 30 条样本）
 - 本地封面：`assets/covers/`（30 张对应漫剧封面；避免首页依赖外部图片即时加载，缺失时仍回退到 YouTube）
+- 播放说明：播放器改用标准 YouTube 嵌入；若出现“请登录”验证，可点击播放器下方“在 YouTube 打开原片”，登录后从对应时间点继续观看。
 
 详细判断见 `ANALYSIS.md`。
 
