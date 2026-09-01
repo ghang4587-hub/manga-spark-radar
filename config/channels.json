@@ -1,0 +1,17 @@
+{
+  "sample_size": 30,
+  "recent_days": 7,
+  "min_views": 200,
+  "pool_per_channel": 25,
+  "channels": [
+    {
+      "name": "Baichuan Comics",
+      "handle": "@BaichuanComics"
+    },
+    {
+      "name": "Supreme Anime Drama",
+      "handle": "@Supreme-AnimeDrama",
+      "channel_id": "UCfQHz3KTHxoepX4x4lCTX5Q"
+    }
+  ]
+}
