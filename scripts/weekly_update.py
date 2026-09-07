@@ -4,7 +4,8 @@
 The site is intentionally static. This script is the scheduled build step used
 by GitHub Actions: it discovers recent uploads from the configured channels,
 checks YouTube playability, ranks candidates by recency and views, and rewrites
-the inline `videos` array while keeping exactly 30 records.
+the inline `overseasPool` array while keeping exactly 20 overseas records. The
+page combines those records with 20 separately maintained domestic samples.
 
 No API key is required. YouTube's public Atom feed discovers uploads and the
 watch page supplies duration, view count, and playability status. If a request
@@ -280,14 +281,14 @@ def watch_metadata(row: dict) -> tuple[dict | None, str]:
 
 def existing_videos() -> list[dict]:
     source = INDEX_PATH.read_text(encoding="utf-8")
-    marker = "const videos=["
+    marker = "const overseasPool=["
     start = source.find(marker)
     if start < 0:
-        raise RuntimeError("const videos=[ not found in index.html")
+        raise RuntimeError("const overseasPool=[ not found in index.html")
     end = source.find("];", start)
     if end < 0:
-        raise RuntimeError("videos array terminator not found in index.html")
-    literal = source[start + len("const videos=") : end + 1]
+        raise RuntimeError("overseasPool array terminator not found in index.html")
+    literal = source[start + len(marker) - 1 : end + 1]
     # After the first scheduled run the array is emitted as valid JSON. Read
     # that form first so subsequent weekly runs retain the existing editorial
     # Chinese copy as their fallback records.
@@ -420,18 +421,29 @@ def choose_sample(pool: list[dict], today: dt.date, sample_size: int, recent_day
         # only after every sufficiently popular candidate has been exhausted.
         eligible = rows
     eligible.sort(key=lambda item: rank_key(item, today, recent_days), reverse=True)
-    return eligible[:sample_size]
+    # Keep the overseas pool balanced across configured channels. Without a
+    # quota, one prolific channel can occupy the entire weekly sample.
+    sources = sorted({item.get("source", "") for item in eligible if item.get("source")})
+    if len(sources) <= 1:
+        return eligible[:sample_size]
+    quota = max(1, sample_size // len(sources))
+    selected: list[dict] = []
+    for source in sources:
+        selected.extend([item for item in eligible if item.get("source") == source][:quota])
+    selected_ids = {item["id"] for item in selected}
+    selected.extend(item for item in eligible if item["id"] not in selected_ids)
+    return selected[:sample_size]
 
 
 def replace_videos_array(source: str, videos: list[dict]) -> str:
-    marker = "const videos=["
+    marker = "const overseasPool=["
     start = source.find(marker)
     if start < 0:
-        raise RuntimeError("const videos=[ not found in index.html")
-    array_start = start + len("const videos=")
+        raise RuntimeError("const overseasPool=[ not found in index.html")
+    array_start = start + len(marker) - 1
     array_end = source.find("];", array_start)
     if array_end < 0:
-        raise RuntimeError("videos array terminator not found in index.html")
+        raise RuntimeError("overseasPool array terminator not found in index.html")
     literal = json.dumps(videos, ensure_ascii=False, indent=2)
     return source[:array_start] + literal + source[array_end + 1 :]
 
@@ -546,11 +558,11 @@ def main() -> int:
     selected = choose_sample(
         pool,
         today,
-        int(config.get("sample_size", 30)),
+        int(config.get("sample_size", 20)),
         int(config.get("recent_days", 7)),
         int(config.get("min_views", 200)),
     )
-    if len(selected) < int(config.get("sample_size", 30)):
+    if len(selected) < int(config.get("sample_size", 20)):
         raise RuntimeError(f"only {len(selected)} playable candidates; refusing to publish a short sample")
 
     if args.dry_run:
