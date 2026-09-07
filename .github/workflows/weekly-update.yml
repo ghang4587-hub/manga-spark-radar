@@ -26,14 +26,14 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Select 30 playable, popular samples
+      - name: Select 20 overseas playable, popular samples
         run: python scripts/weekly_update.py
 
       - name: Commit only when the snapshot changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html story_nodes.json storyboards.json assets/covers
+          git add index.html story_nodes.json storyboards.json assets/covers data/domestic_samples.js
           if git diff --cached --quiet; then
             echo "No weekly changes to publish."
           else
