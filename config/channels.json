@@ -1,8 +1,13 @@
 {
-  "sample_size": 30,
+  "sample_size": 20,
+  "overseas_sample_size": 20,
+  "total_sample_size": 40,
+  "focus_size": 16,
+  "deep_dive_size": 8,
+  "domestic_sample_size": 20,
   "recent_days": 7,
   "min_views": 200,
-  "pool_per_channel": 25,
+  "pool_per_channel": 35,
   "channels": [
     {
       "name": "Baichuan Comics",
