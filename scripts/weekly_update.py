@@ -257,6 +257,19 @@ def watch_metadata(row: dict) -> tuple[dict | None, str]:
     status_match = re.search(r'"status"\s*:\s*"([A-Z_]+)"', playability)
     status = status_match.group(1) if status_match else None
     if status and status != "OK":
+        # A runner without a YouTube session may receive LOGIN_REQUIRED (or a
+        # rate/age/content gate) for an otherwise valid video. Treat those as
+        # transient verification failures so an entire existing sample pool
+        # is not deleted during the weekly run. Only explicit unavailable
+        # statuses are safe to remove.
+        transient_statuses = {
+            "LOGIN_REQUIRED",
+            "AGE_CHECK_REQUIRED",
+            "CONTENT_CHECK_REQUIRED",
+            "RATE_LIMITED",
+        }
+        if status in transient_statuses:
+            return None, "error"
         return None, "invalid"
     if not status and '"videoDetails"' not in page:
         return None, "error"
@@ -592,3 +605,4 @@ if __name__ == "__main__":
     except (OSError, ValueError, RuntimeError) as exc:
         print(f"weekly update failed: {exc}", file=sys.stderr)
         raise SystemExit(1)
+
