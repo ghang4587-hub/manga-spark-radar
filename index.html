@@ -487,7 +487,7 @@ const overseasPool=[
   }
 ];
 const domesticPool=Array.isArray(window.DOMESTIC_VIDEOS)?window.DOMESTIC_VIDEOS:[];
-const overseasVideos=['Baichuan Comics','Supreme Anime Drama'].flatMap(source=>overseasPool.filter(video=>video.source===source).slice(0,10));
+const overseasVideos=overseasPool.slice(0,20);
 const videos=[...domesticPool.slice(0,20),...overseasVideos].slice(0,40);
 
 const $=id=>document.getElementById(id);
