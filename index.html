@@ -58,11 +58,11 @@
     <div class="brand"><div class="mark">漫</div><div><b>漫剧趋势雷达</b><small>漫剧趋势分析</small></div></div>
     <nav class="nav"><button class="active">热点样本 <span id="navSampleCount">40</span></button><button>题材结构</button><button>开场钩子</button><button>来源平台</button></nav>
     <div class="strategy"><label>本次抓取口径</label><p>国内外漫剧公开样本；国内侧重标题与结构，海外 YouTube 保留字幕语义与十节点 storyboard。</p></div>
-    <div class="source-note">公开来源：<a href="https://www.youtube.com/@BaichuanComics/videos" target="_blank" rel="noreferrer">Baichuan Comics</a>、<a href="https://www.youtube.com/@Supreme-AnimeDrama/videos" target="_blank" rel="noreferrer">Supreme Anime Drama</a>、<a href="https://www.bilibili.com" target="_blank" rel="noreferrer">B站</a>、<a href="https://www.iqiyi.com" target="_blank" rel="noreferrer">爱奇艺</a><br>最近一次快照：<span id="snapshotDate">2026-09-01</span></div>
+    <div class="source-note">公开来源：<a href="https://www.youtube.com/@BaichuanComics/videos" target="_blank" rel="noreferrer">Baichuan Comics</a>、<a href="https://www.youtube.com/@Supreme-AnimeDrama/videos" target="_blank" rel="noreferrer">Supreme Anime Drama</a>、<a href="https://www.bilibili.com" target="_blank" rel="noreferrer">B站</a>、<a href="https://www.iqiyi.com" target="_blank" rel="noreferrer">爱奇艺</a><br>最近一次快照：<span id="snapshotDate">2026-09-07</span></div>
   </aside>
   <main>
     <section class="hero">
-      <div><div class="eyebrow">国内外漫剧趋势雷达 · <span id="snapshotDateHero">2026.09.01</span></div><h1>漫剧热点抓取台</h1><p>从国内外公开平台样本中，筛出适合创策参考的题材、标题结构、受众信号与开场承诺。</p></div>
+      <div><div class="eyebrow">国内外漫剧趋势雷达 · <span id="snapshotDateHero">2026.09.07</span></div><h1>漫剧热点抓取台</h1><p>从国内外公开平台样本中，筛出适合创策参考的题材、标题结构、受众信号与开场承诺。</p></div>
       <div class="freshness"><b>● 已配置每周自动更新</b><span>40 条样本池；每周补入国内外新热门，并剔除下架或低价值样本。</span><button id="updateHelp" type="button">查看周更规则</button></div>
     </section>
 
@@ -113,38 +113,378 @@
 
 <script src="./data/domestic_samples.js?v=20260907"></script>
 <script>
-const DATA_SNAPSHOT='2026-09-01';
+const DATA_SNAPSHOT='2026-09-07';
 const overseasPool=[
-  {id:'mTGf9pgdoLU',title:'诸神嘲笑他的低阶仙位，系统却召来三位神祇反杀',original:'Gods mock his low immortal rank. His system calls 3 mythical gods to counterattack all! ⚔️💥',source:'Baichuan Comics',duration:7299,durationText:'2:01:39',views:76,age:'13 小时前',published:'2026-08-28',tags:['系统','修仙','反击'],score:91,hook:'受辱身份与三神降临形成一步到位的量级反转。',rise:'先给低阶仙位的群体嘲讽，再用系统召唤抬高战力天花板。',promise:'观众会等待三位神祇如何逐个碾压轻视者。'},
-  {id:'AKSWW4cGvvg',title:'兽潮席卷废土，吞噬系统让他进化成龙',original:'【P2】Beasts raid the ruined world. His devour system evolves him into a dragon to counterattack! 🐉',source:'Baichuan Comics',duration:7192,durationText:'1:59:52',views:150,age:'1 天前',published:'2026-08-27',tags:['末日','系统','异兽'],score:92,hook:'“废土生存 + 吞噬进化 + 化龙”连续给出三层爽点。',rise:'灾难先制造生存压力，吞噬机制把每次战斗都变成可见成长。',promise:'从弱小个体到龙形终局，升级路线非常明确。'},
-  {id:'k-ben8q55uk',title:'他因保护女孩被嘲，亮出仙裔身份斩杀古神',original:'Foes mock him for protecting a girl. He reveals his immortal heir status & slays ancient gods! ⚔️💥',source:'Baichuan Comics',duration:4299,durationText:'1:11:39',views:166,age:'5 天前',published:'2026-08-23',tags:['身份反转','修仙','护美'],score:89,hook:'道德选择先建立好感，仙裔身份随后完成公开打脸。',rise:'“保护弱者”让主角先吃亏，再以隐藏血脉翻盘。',promise:'身份暴露后，他与古神的战力差如何被重新定义。'},
-  {id:'ihBTuUZ0wNA',title:'无血脉忍者被当作废物，却在战争中走上弑神路',original:'ENG DUB | Mocked as a Bloodline-less Rogue Ninja—Now I Slay Gods in War | The Fantasy System',source:'Baichuan Comics',duration:1848,durationText:'30:48',views:131,age:'6 天前',published:'2026-08-22',tags:['系统','废柴逆袭','战争'],score:88,hook:'“无血脉废柴”与“战争弑神”构成极端身份落差。',rise:'把天赋羞辱压缩在开头，迅速交代系统带来的越级能力。',promise:'主角如何从体系外的人变成改写战争规则的人。'},
-  {id:'Lp8fBCELnS0',title:'困在无限梦境循环，系统允许他改写现实',original:'ENG DUB | Trapped in Infinite Dream Loop, My System Rewrites Reality to Break Fantasy Curse!',source:'Baichuan Comics',duration:1230,durationText:'20:30',views:138,age:'7 天前',published:'2026-08-21',tags:['系统','无限流','悬疑'],score:90,hook:'梦境循环制造即时谜题，“改写现实”则给出破局外挂。',rise:'先建立无法醒来的规则，再让主角发现规则可被编辑。',promise:'每次改写会付出什么代价，以及诅咒源头是谁。'},
-  {id:'ZcxUcAcEcZA',title:'反加班系统赐予无敌战力，他要轰碎腐朽仙帝',original:'ENG DUB | My Anti-Overtime System Grants Invincibility to Bomb the Corrupt Fantasy Emperor!#anime',source:'Baichuan Comics',duration:2491,durationText:'41:31',views:143,age:'9 天前',published:'2026-08-19',tags:['系统','反套路','修仙'],score:86,hook:'现代“反加班”情绪与仙侠权力结构碰撞，概念有记忆点。',rise:'现实痛点先拉近距离，再把反抗对象升级成仙帝。',promise:'职场规则如何被转译成修仙世界的战力规则。'},
-  {id:'LiKNqywx_U0',title:'穿越海洋末日，系统赐他活体巨兽吞噬敌人',original:'Traversing Fantasy Ocean Apocalypse, My System Gives Me a Living Beast to Eat All Enemies!',source:'Baichuan Comics',duration:3955,durationText:'1:05:55',views:248,age:'11 天前',published:'2026-08-17',tags:['末日','系统','异兽'],score:87,hook:'海洋末日提供稀缺场景，活体巨兽提供强视觉资产。',rise:'孤立海域限制资源，巨兽吞噬不断扩大安全边界。',promise:'巨兽会进化到何种形态，海下还藏着什么威胁。'},
-  {id:'bjieTAhBaBk',title:'被迫绑定末日后宫系统，致命女王替他横扫尸潮',original:'Forced Into a Fantasy Harem System in Apocalypse, Deadly Queens Slay Zombie Hordes for Me! #anime',source:'Baichuan Comics',duration:7765,durationText:'2:09:25',views:372,age:'12 天前',published:'2026-08-16',tags:['末日','系统','群像'],score:83,hook:'“被迫绑定”降低主动性，但女王军团与尸潮有明确奇观。',rise:'系统快速聚合强角色，以团队扩张对抗末日规模。',promise:'不同女王能力怎样组合，以及关系冲突如何反噬。'},
-  {id:'7icqVsxEGxs',title:'穿越商业末日，女王系统把濒死公司变成帝国',original:'Traversing to a Business Apocalypse, My Queen System Turned a Failing Firm Into a Fantasy Empire!',source:'Baichuan Comics',duration:8557,durationText:'2:22:37',views:190,age:'13 天前',published:'2026-08-15',tags:['系统','经营','逆袭'],score:84,hook:'把“末日”换成企业崩盘，经营升级线更接近现实爽点。',rise:'从现金流危机切入，用系统任务逐层扩大组织能力。',promise:'濒死公司如何击败行业巨头并建立新秩序。'},
-  {id:'fhR5xZQR1Y4',title:'他从火中救出诅咒之卵，海神系统孵出巨龙阻止海啸',original:'Saved a Cursed Egg From Fire! My Sea God System Hatched a Fantasy Dragon to Stop Tsunamis! #anime',source:'Baichuan Comics',duration:3063,durationText:'51:03',views:214,age:'2 周前',published:'2026-08-14',tags:['系统','异兽','灾难'],score:91,hook:'救蛋、孵龙、阻海啸三次升级都具有可视化转折。',rise:'善意选择触发系统奖励，局部救援迅速升级为世界灾难。',promise:'诅咒为何存在，幼龙怎样成长为足以挡海的力量。'},
-  {id:'36JeMI78JmU',title:'恋爱系统逼他攻略众人，他却只想抡锤击败敌人',original:'Bound to a Dating System in a Fantasy World, I Ignored Romance & Smashed Enemies With My Hammer!',source:'Baichuan Comics',duration:4313,durationText:'1:11:53',views:217,age:'2 周前',published:'2026-08-14',tags:['系统','反套路','喜剧'],score:86,hook:'拒绝执行系统目标，天然形成“规则与主角”之间的喜剧冲突。',rise:'系统不断抛出恋爱任务，主角用战斗手段错误完成。',promise:'他能否靠彻底跑偏的操作把恋爱系统玩成战斗外挂。'},
-  {id:'Fz9DKFRv_iU',title:'濒死星球上的奴隶，用草药系统把杂草炼成神药',original:'Traversing as a Dying Trash Planet Slave, My Herbal System Turns Weeds Into Fantasy Cures! #anime',source:'Baichuan Comics',duration:8807,durationText:'2:26:47',views:174,age:'2 周前',published:'2026-08-14',tags:['系统','经营','废土'],score:85,hook:'最低资源“杂草”变成最高价值“神药”，价值反转清楚。',rise:'奴隶身份压低起点，稀缺医疗资源让每次炼药都产生杠杆。',promise:'主角怎样通过药物控制资源、阶层与星球命运。'},
-  {id:'hom5r6iBndo',title:'穷宗主觉醒“花钱变强”系统，越败家越无敌',original:'【DUB】I’m a Penniless Sect Master, But My "Waste Money to Get Stronger" System is God-Tier! 🔥',source:'Baichuan Comics',duration:8808,durationText:'2:26:48',views:182,age:'2 周前',published:'2026-08-14',tags:['系统','修仙','反套路'],score:90,hook:'“穷”与“必须花钱”制造即刻矛盾，规则一句话就能听懂。',rise:'资源匮乏让首个任务变难，奖励又迫使主角持续扩大消费。',promise:'他会用什么离谱方式花钱，并把宗门带到多强。'},
-  {id:'YSgRF6c1CcM',title:'末日塔防系统封印鬼后，他要守住据点与同伴',original:'Traversing a Fantasy Apocalypse, My Tower Defense System Seals Ghost Empress & Wins 4 Beauties!',source:'Baichuan Comics',duration:6224,durationText:'1:43:44',views:247,age:'2 周前',published:'2026-08-14',tags:['末日','系统','塔防'],score:82,hook:'塔防规则天然适合连续关卡，但标题信息稍显拥挤。',rise:'先给据点倒计时，再用防御建筑和角色招募扩展战术。',promise:'下一波敌人会如何迫使主角升级防线。'},
-  {id:'ARYLkfv3bLI',title:'重生后只想躺平，咸鱼系统却触发凤凰天赋',original:'Reborn Just to Slack Off, My Slacker System Triggers Phoenix Talent to Rule Fantasy Cultivation!',source:'Baichuan Comics',duration:3917,durationText:'1:05:17',views:112,age:'2 周前',published:'2026-08-14',tags:['重生','系统','修仙'],score:89,hook:'“越躺平越强”把重生焦虑改造成反努力爽点。',rise:'主角拒绝内卷，系统奖励反而一次次证明他的选择正确。',promise:'当所有人逼他竞争时，躺平规则还能怎样制造碾压。'},
-  {id:'gLAuiRyxSFA',title:'怪兽进化系统觉醒，御兽师在异变地球统御万兽',original:'💥【NEW】Monster Evolution System ：Beast Tamer of the Changed Earth#anime#chineseanime#engdub',source:'Supreme Anime Drama',duration:7924,durationText:'2:12:04',views:18970,age:'1 天前',published:'2026-08-31',tags:['系统','末日','异兽'],score:96,hook:'“怪兽进化系统 + 异变地球”同时交代升级机制和末日舞台，视觉资产清晰。',rise:'先让异变怪兽打破旧秩序，再用首只契约兽展示可复制的进化路线。',promise:'观众会追看兽群如何连续变异，以及主角能否建立新的生存秩序。'},
-  {id:'32DMINCGEO0',title:'他从湮灭中归来，要碾碎神、魔与人间秩序',original:'Back From Oblivion: I Crush Gods, Devils, and the Mortal World S2',source:'Supreme Anime Drama',duration:7202,durationText:'2:00:02',views:376,age:'15 小时前',published:'2026-08-28',tags:['重生','复仇','修仙'],score:87,hook:'从“被抹除”到“三界复仇”，目标规模极大且直接。',rise:'用失去一切建立仇恨，再通过归来首战证明实力差。',promise:'主角被湮灭的原因，以及三界幕后共同的敌人。'},
-  {id:'fY_A7MMRpCw',title:'赛博弑神者重铸九大容器，夺回被改造的人生',original:'Cyber Godslayer: Reforging the Nine Vessels',source:'Supreme Anime Drama',duration:6566,durationText:'1:49:26',views:498,age:'16 小时前',published:'2026-08-28',tags:['赛博','弑神','升级'],score:88,hook:'赛博与修炼混搭，“九大容器”提供明确收集线。',rise:'身体缺陷成为首个危机，逐一重铸让成长可分章呈现。',promise:'每个容器对应什么能力，最终弑神需要付出什么代价。'},
-  {id:'HlwfPz5Cgho',title:'深渊铭文觉醒，炼金刺客从实验品走向复仇',original:'Abyss Inscription: Rise of the Alchemical Assassin',source:'Supreme Anime Drama',duration:21515,durationText:'5:58:35',views:1209,age:'1 天前',published:'2026-08-27',tags:['暗黑','复仇','炼金'],score:86,hook:'“炼金刺客”职业差异化明显，深渊铭文提供能力谜团。',rise:'实验创伤建立复仇动机，铭文觉醒提供第一轮能力展示。',promise:'主角身上的铭文是谁留下的，又会怎样侵蚀他。'},
-  {id:'MXF14LAcUj4',title:'炼体者拒绝天命，用拳头轰穿整个天界',original:'The Body Cultivator’s Rebellion: I Punch Through Heaven',source:'Supreme Anime Drama',duration:6867,durationText:'1:54:27',views:2470,age:'1 天前',published:'2026-08-27',tags:['修仙','反天','力量'],score:89,hook:'“一拳破天”是极简视觉承诺，力量路线没有理解门槛。',rise:'先证明主角无法使用主流法术，再让肉身力量越级生效。',promise:'纯粹力量能否打破由法则与天命构成的上限。'},
-  {id:'XYWu-9XBFIY',title:'觉醒的 NPC 找到漏洞，开始重写整个世界法则',original:'Game-Breaking NPC: I Rewrite the Laws of the World',source:'Supreme Anime Drama',duration:8177,durationText:'2:16:17',views:2457,age:'1 天前',published:'2026-08-27',tags:['系统','游戏','觉醒'],score:93,hook:'NPC 意识觉醒与“改写规则”组合，信息差非常集中。',rise:'从被玩家反复利用切入，让主角第一次拒绝脚本。',promise:'世界是真游戏还是更大牢笼，改写法则会触发谁的追杀。'},
-  {id:'jskU8qdj4EA',title:'极寒末日降临，御兽法师在冰封世界觉醒',original:'Extreme Cold Apocalypse: The Awakening of the Beast Taming Mage',source:'Supreme Anime Drama',duration:28283,durationText:'7:51:23',views:3023,age:'1 天前',published:'2026-08-27',tags:['末日','异兽','生存'],score:90,hook:'极寒灾难具有即时视觉压迫，御兽能力适合持续扩充资产。',rise:'温度倒计时先制造危机，首只契约兽承担破局与情感连接。',promise:'环境会冷到何种程度，兽群能否建立移动生存基地。'},
-  {id:'YaNEDPNDzd4',title:'武神解封，诸天本身都将成为他的力量燃料',original:'Martial God Unleashed: The Heavens Fuel My Power',source:'Supreme Anime Drama',duration:6408,durationText:'1:46:48',views:1659,age:'2 天前',published:'2026-08-26',tags:['修仙','武神','升级'],score:84,hook:'“以诸天为燃料”量级很大，但人物困境需要更早落地。',rise:'封印限制先形成障碍，再通过吸收世界能量逐层解锁。',promise:'无限吸收是否会毁掉诸天，主角会如何选择。'},
-  {id:'2BYng5SlmHI',title:'午夜都市传说成真，他发现每个禁忌都在找人',original:'Midnight Horror: The Urban Legends Are Real',source:'Supreme Anime Drama',duration:7684,durationText:'2:08:04',views:751,age:'2 天前',published:'2026-08-26',tags:['都市','恐怖','规则怪谈'],score:92,hook:'“传说成真”无需解释，午夜场景与禁忌规则适合短段落留钩。',rise:'先兑现一个熟悉传说，再揭示多个传说共享同一规则。',promise:'谁让传说实体化，主角能否利用规则反杀。'},
-  {id:'4W-HqkhvDwU',title:'御兽鉴定师能看见隐藏天赋，废兽在他手中全部翻身',original:'Beast Appraiser: My System Reveals Hidden Talents',source:'Supreme Anime Drama',duration:7464,durationText:'2:04:24',views:757,age:'2 天前',published:'2026-08-26',tags:['系统','异兽','鉴定'],score:88,hook:'人人看不起的废兽被重新估值，天然适合连续打脸。',rise:'公开鉴定制造群体误判，隐藏面板让主角获得唯一信息差。',promise:'下一只废兽会藏着什么神级天赋。'},
-  {id:'I0k3PyEtO1A',title:'虫群主宰觉醒 SSS 级天赋，从最弱虫卵开始扩张',original:'The Insect Overlord: Awakening of the SSS-Rank Master',source:'Supreme Anime Drama',duration:7807,durationText:'2:10:07',views:6646,age:'2 天前',published:'2026-08-26',tags:['异兽','虫群','SSS'],score:91,hook:'微小虫卵与主宰称号形成反差，群体扩张有强成长可视性。',rise:'从被轻视的低阶召唤物开始，以数量和变异打破等级判断。',promise:'虫群将进化出怎样的兵种与统治结构。'},
-  {id:'AJUWSSJWDK0',title:'魔祖陨落后，星际哨兵在废墟中重新觉醒',original:'Fall of the Demon Ancestor: Interstellar Sentinel Awakening',source:'Supreme Anime Drama',duration:6783,durationText:'1:53:03',views:3338,age:'3 天前',published:'2026-08-25',tags:['星际','重生','魔祖'],score:87,hook:'魔道与星际哨兵的类型混搭，比常规修仙更易形成视觉差异。',rise:'旧时代强者陨落，未来身份觉醒把两套能力体系接在一起。',promise:'魔祖记忆与哨兵职责会站在同一边还是互相冲突。'},
-  {id:'xvrOT_JvsNA',title:'毫无修为的宗主，全部力量却寄生在弟子身上',original:'Sect Master Without Cultivation: All Powers Belong To My Disciples',source:'Supreme Anime Drama',duration:7566,durationText:'2:06:06',views:928,age:'3 天前',published:'2026-08-25',tags:['系统','宗门','反套路'],score:91,hook:'“宗主无修为”与“弟子越强他越强”构成清晰经营机制。',rise:'先让宗主在公开场合暴露弱点，再由首位弟子反馈能力。',promise:'他会如何挑选奇葩弟子，把废宗养成最强势力。'},
-  {id:'s2mlkrsGPSU',title:'北境刀血未冷，覆灭烈士的最后后裔归来',original:'Blood Of The Northern Blade: The Last Scion of Fallen Martyrs',source:'Supreme Anime Drama',duration:16663,durationText:'4:37:43',views:2748,age:'3 天前',published:'2026-08-25',tags:['复仇','刀客','遗孤'],score:88,hook:'最后后裔、覆灭家族、北境之刀构成成熟复仇入口。',rise:'遗孤身份制造追杀，第一场拔刀则证明传承尚未断绝。',promise:'家族覆灭的真凶是谁，最后一刀为谁而留。'},
-  {id:'JUlnl7_zqQ4',title:'懒惰领主只想摸鱼，却靠“偷懒”建成无敌帝国',original:'Lazy Lord: My “Slacking” Builds an Unstoppable Empire',source:'Supreme Anime Drama',duration:7633,durationText:'2:07:13',views:4808,age:'4 天前',published:'2026-08-24',tags:['系统','经营','反套路'],score:93,hook:'“偷懒 = 建国”规则反常识，标题即可传达完整爽点。',rise:'领地濒临崩溃，主角每次回避工作却意外触发高效奖励。',promise:'当帝国越做越大，他还能用多离谱的方法继续躺平。'}
+  {
+    "id": "bjieTAhBaBk",
+    "title": "被迫绑定末日后宫系统，致命女王替他横扫尸潮",
+    "original": "Forced Into a Fantasy Harem System in Apocalypse, Deadly Queens Slay Zombie Hordes for Me! #anime",
+    "source": "Baichuan Comics",
+    "duration": 7765,
+    "durationText": "2:09:25",
+    "views": 372,
+    "age": "12 天前",
+    "published": "2026-08-16",
+    "tags": [
+      "系统",
+      "末日",
+      "丧尸"
+    ],
+    "score": 86,
+    "hook": "系统机制在标题中直接亮相，规则清晰、点击门槛低。",
+    "rise": "先用低位处境制造压力，再让系统给出第一项可见能力。",
+    "promise": "系统的下一次奖励和隐藏代价，会推动观众继续观看。"
+  },
+  {
+    "id": "LiKNqywx_U0",
+    "title": "穿越海洋末日，系统赐他活体巨兽吞噬敌人",
+    "original": "Traversing Fantasy Ocean Apocalypse, My System Gives Me a Living Beast to Eat All Enemies!",
+    "source": "Baichuan Comics",
+    "duration": 3955,
+    "durationText": "1:05:55",
+    "views": 248,
+    "age": "11 天前",
+    "published": "2026-08-17",
+    "tags": [
+      "系统",
+      "末日",
+      "异兽"
+    ],
+    "score": 86,
+    "hook": "系统机制在标题中直接亮相，规则清晰、点击门槛低。",
+    "rise": "先用低位处境制造压力，再让系统给出第一项可见能力。",
+    "promise": "系统的下一次奖励和隐藏代价，会推动观众继续观看。"
+  },
+  {
+    "id": "YSgRF6c1CcM",
+    "title": "末日塔防系统封印鬼后，他要守住据点与同伴",
+    "original": "Traversing a Fantasy Apocalypse, My Tower Defense System Seals Ghost Empress & Wins 4 Beauties!",
+    "source": "Baichuan Comics",
+    "duration": 6224,
+    "durationText": "1:43:44",
+    "views": 247,
+    "age": "2 周前",
+    "published": "2026-08-14",
+    "tags": [
+      "系统",
+      "末日"
+    ],
+    "score": 86,
+    "hook": "系统机制在标题中直接亮相，规则清晰、点击门槛低。",
+    "rise": "先用低位处境制造压力，再让系统给出第一项可见能力。",
+    "promise": "系统的下一次奖励和隐藏代价，会推动观众继续观看。"
+  },
+  {
+    "id": "36JeMI78JmU",
+    "title": "恋爱系统逼他攻略众人，他却只想抡锤击败敌人",
+    "original": "Bound to a Dating System in a Fantasy World, I Ignored Romance & Smashed Enemies With My Hammer!",
+    "source": "Baichuan Comics",
+    "duration": 4313,
+    "durationText": "1:11:53",
+    "views": 217,
+    "age": "2 周前",
+    "published": "2026-08-14",
+    "tags": [
+      "系统"
+    ],
+    "score": 85,
+    "hook": "系统机制在标题中直接亮相，规则清晰、点击门槛低。",
+    "rise": "先用低位处境制造压力，再让系统给出第一项可见能力。",
+    "promise": "系统的下一次奖励和隐藏代价，会推动观众继续观看。"
+  },
+  {
+    "id": "fhR5xZQR1Y4",
+    "title": "他从火中救出诅咒之卵，海神系统孵出巨龙阻止海啸",
+    "original": "Saved a Cursed Egg From Fire! My Sea God System Hatched a Fantasy Dragon to Stop Tsunamis! #anime",
+    "source": "Baichuan Comics",
+    "duration": 3063,
+    "durationText": "51:03",
+    "views": 214,
+    "age": "2 周前",
+    "published": "2026-08-14",
+    "tags": [
+      "系统",
+      "巨龙",
+      "弑神"
+    ],
+    "score": 85,
+    "hook": "系统机制在标题中直接亮相，规则清晰、点击门槛低。",
+    "rise": "先用低位处境制造压力，再让系统给出第一项可见能力。",
+    "promise": "系统的下一次奖励和隐藏代价，会推动观众继续观看。"
+  },
+  {
+    "id": "gLAuiRyxSFA",
+    "title": "怪兽进化系统觉醒，御兽师在异变地球统御万兽",
+    "original": "💥【NEW】Monster Evolution System ：Beast Tamer of the Changed Earth#anime#chineseanime#engdub",
+    "source": "Supreme Anime Drama",
+    "duration": 7924,
+    "durationText": "2:12:04",
+    "views": 18970,
+    "age": "1 天前",
+    "published": "2026-08-31",
+    "tags": [
+      "系统",
+      "异兽"
+    ],
+    "score": 93,
+    "hook": "系统机制在标题中直接亮相，规则清晰、点击门槛低。",
+    "rise": "先用低位处境制造压力，再让系统给出第一项可见能力。",
+    "promise": "系统的下一次奖励和隐藏代价，会推动观众继续观看。"
+  },
+  {
+    "id": "I0k3PyEtO1A",
+    "title": "虫群主宰觉醒 SSS 级天赋，从最弱虫卵开始扩张",
+    "original": "The Insect Overlord: Awakening of the SSS-Rank Master",
+    "source": "Supreme Anime Drama",
+    "duration": 7807,
+    "durationText": "2:10:07",
+    "views": 6646,
+    "age": "2 天前",
+    "published": "2026-08-26",
+    "tags": [
+      "漫剧"
+    ],
+    "score": 91,
+    "hook": "“虫群主宰觉醒 SSS 级天赋，从最弱虫卵开始扩张”提供清晰的身份或能力反差，适合做开场钩子。",
+    "rise": "先让主角遭遇具体阻碍，再用一次可见变化证明故事规则。",
+    "promise": "新的能力、敌人或身份线索会把观众带向下一次冲突。"
+  },
+  {
+    "id": "JUlnl7_zqQ4",
+    "title": "懒惰领主只想摸鱼，却靠“偷懒”建成无敌帝国",
+    "original": "Lazy Lord: My “Slacking” Builds an Unstoppable Empire",
+    "source": "Supreme Anime Drama",
+    "duration": 7633,
+    "durationText": "2:07:13",
+    "views": 4808,
+    "age": "4 天前",
+    "published": "2026-08-24",
+    "tags": [
+      "经营"
+    ],
+    "score": 91,
+    "hook": "“懒惰领主只想摸鱼，却靠“偷懒”建成无敌帝国”提供清晰的身份或能力反差，适合做开场钩子。",
+    "rise": "先让主角遭遇具体阻碍，再用一次可见变化证明故事规则。",
+    "promise": "新的能力、敌人或身份线索会把观众带向下一次冲突。"
+  },
+  {
+    "id": "jskU8qdj4EA",
+    "title": "极寒末日降临，御兽法师在冰封世界觉醒",
+    "original": "Extreme Cold Apocalypse: The Awakening of the Beast Taming Mage",
+    "source": "Supreme Anime Drama",
+    "duration": 28283,
+    "durationText": "7:51:23",
+    "views": 3023,
+    "age": "1 天前",
+    "published": "2026-08-27",
+    "tags": [
+      "末日",
+      "异兽"
+    ],
+    "score": 90,
+    "hook": "灾难场景提供即时视觉压力，生存目标容易被快速理解。",
+    "rise": "先交代资源或安全区倒计时，再展示主角的破局手段。",
+    "promise": "下一轮灾难会把生存边界推到哪里，是核心留存问题。"
+  },
+  {
+    "id": "AJUWSSJWDK0",
+    "title": "魔祖陨落后，星际哨兵在废墟中重新觉醒",
+    "original": "Fall of the Demon Ancestor: Interstellar Sentinel Awakening",
+    "source": "Supreme Anime Drama",
+    "duration": 6783,
+    "durationText": "1:53:03",
+    "views": 3338,
+    "age": "3 天前",
+    "published": "2026-08-25",
+    "tags": [
+      "漫剧"
+    ],
+    "score": 90,
+    "hook": "“魔祖陨落后，星际哨兵在废墟中重新觉醒”提供清晰的身份或能力反差，适合做开场钩子。",
+    "rise": "先让主角遭遇具体阻碍，再用一次可见变化证明故事规则。",
+    "promise": "新的能力、敌人或身份线索会把观众带向下一次冲突。"
+  },
+  {
+    "id": "MXF14LAcUj4",
+    "title": "炼体者拒绝天命，用拳头轰穿整个天界",
+    "original": "The Body Cultivator’s Rebellion: I Punch Through Heaven",
+    "source": "Supreme Anime Drama",
+    "duration": 6867,
+    "durationText": "1:54:27",
+    "views": 2470,
+    "age": "1 天前",
+    "published": "2026-08-27",
+    "tags": [
+      "修仙"
+    ],
+    "score": 90,
+    "hook": "“炼体者拒绝天命，用拳头轰穿整个天界”提供清晰的身份或能力反差，适合做开场钩子。",
+    "rise": "先让主角遭遇具体阻碍，再用一次可见变化证明故事规则。",
+    "promise": "新的能力、敌人或身份线索会把观众带向下一次冲突。"
+  },
+  {
+    "id": "XYWu-9XBFIY",
+    "title": "觉醒的 NPC 找到漏洞，开始重写整个世界法则",
+    "original": "Game-Breaking NPC: I Rewrite the Laws of the World",
+    "source": "Supreme Anime Drama",
+    "duration": 8177,
+    "durationText": "2:16:17",
+    "views": 2457,
+    "age": "1 天前",
+    "published": "2026-08-27",
+    "tags": [
+      "漫剧"
+    ],
+    "score": 90,
+    "hook": "“觉醒的 NPC 找到漏洞，开始重写整个世界法则”提供清晰的身份或能力反差，适合做开场钩子。",
+    "rise": "先让主角遭遇具体阻碍，再用一次可见变化证明故事规则。",
+    "promise": "新的能力、敌人或身份线索会把观众带向下一次冲突。"
+  },
+  {
+    "id": "s2mlkrsGPSU",
+    "title": "北境刀血未冷，覆灭烈士的最后后裔归来",
+    "original": "Blood Of The Northern Blade: The Last Scion of Fallen Martyrs",
+    "source": "Supreme Anime Drama",
+    "duration": 16663,
+    "durationText": "4:37:43",
+    "views": 2748,
+    "age": "3 天前",
+    "published": "2026-08-25",
+    "tags": [
+      "漫剧"
+    ],
+    "score": 90,
+    "hook": "“北境刀血未冷，覆灭烈士的最后后裔归来”提供清晰的身份或能力反差，适合做开场钩子。",
+    "rise": "先让主角遭遇具体阻碍，再用一次可见变化证明故事规则。",
+    "promise": "新的能力、敌人或身份线索会把观众带向下一次冲突。"
+  },
+  {
+    "id": "YaNEDPNDzd4",
+    "title": "武神解封，诸天本身都将成为他的力量燃料",
+    "original": "Martial God Unleashed: The Heavens Fuel My Power",
+    "source": "Supreme Anime Drama",
+    "duration": 6408,
+    "durationText": "1:46:48",
+    "views": 1659,
+    "age": "2 天前",
+    "published": "2026-08-26",
+    "tags": [
+      "弑神"
+    ],
+    "score": 89,
+    "hook": "“武神解封，诸天本身都将成为他的力量燃料”提供清晰的身份或能力反差，适合做开场钩子。",
+    "rise": "先让主角遭遇具体阻碍，再用一次可见变化证明故事规则。",
+    "promise": "新的能力、敌人或身份线索会把观众带向下一次冲突。"
+  },
+  {
+    "id": "HlwfPz5Cgho",
+    "title": "深渊铭文觉醒，炼金刺客从实验品走向复仇",
+    "original": "Abyss Inscription: Rise of the Alchemical Assassin",
+    "source": "Supreme Anime Drama",
+    "duration": 21515,
+    "durationText": "5:58:35",
+    "views": 1209,
+    "age": "1 天前",
+    "published": "2026-08-27",
+    "tags": [
+      "漫剧"
+    ],
+    "score": 88,
+    "hook": "“深渊铭文觉醒，炼金刺客从实验品走向复仇”提供清晰的身份或能力反差，适合做开场钩子。",
+    "rise": "先让主角遭遇具体阻碍，再用一次可见变化证明故事规则。",
+    "promise": "新的能力、敌人或身份线索会把观众带向下一次冲突。"
+  },
+  {
+    "id": "xvrOT_JvsNA",
+    "title": "毫无修为的宗主，全部力量却寄生在弟子身上",
+    "original": "Sect Master Without Cultivation: All Powers Belong To My Disciples",
+    "source": "Supreme Anime Drama",
+    "duration": 7566,
+    "durationText": "2:06:06",
+    "views": 928,
+    "age": "3 天前",
+    "published": "2026-08-25",
+    "tags": [
+      "修仙"
+    ],
+    "score": 88,
+    "hook": "“毫无修为的宗主，全部力量却寄生在弟子身上”提供清晰的身份或能力反差，适合做开场钩子。",
+    "rise": "先让主角遭遇具体阻碍，再用一次可见变化证明故事规则。",
+    "promise": "新的能力、敌人或身份线索会把观众带向下一次冲突。"
+  },
+  {
+    "id": "4W-HqkhvDwU",
+    "title": "御兽鉴定师能看见隐藏天赋，废兽在他手中全部翻身",
+    "original": "Beast Appraiser: My System Reveals Hidden Talents",
+    "source": "Supreme Anime Drama",
+    "duration": 7464,
+    "durationText": "2:04:24",
+    "views": 757,
+    "age": "2 天前",
+    "published": "2026-08-26",
+    "tags": [
+      "系统",
+      "异兽"
+    ],
+    "score": 88,
+    "hook": "系统机制在标题中直接亮相，规则清晰、点击门槛低。",
+    "rise": "先用低位处境制造压力，再让系统给出第一项可见能力。",
+    "promise": "系统的下一次奖励和隐藏代价，会推动观众继续观看。"
+  },
+  {
+    "id": "2BYng5SlmHI",
+    "title": "午夜都市传说成真，他发现每个禁忌都在找人",
+    "original": "Midnight Horror: The Urban Legends Are Real",
+    "source": "Supreme Anime Drama",
+    "duration": 7684,
+    "durationText": "2:08:04",
+    "views": 751,
+    "age": "2 天前",
+    "published": "2026-08-26",
+    "tags": [
+      "漫剧"
+    ],
+    "score": 88,
+    "hook": "“午夜都市传说成真，他发现每个禁忌都在找人”提供清晰的身份或能力反差，适合做开场钩子。",
+    "rise": "先让主角遭遇具体阻碍，再用一次可见变化证明故事规则。",
+    "promise": "新的能力、敌人或身份线索会把观众带向下一次冲突。"
+  },
+  {
+    "id": "fY_A7MMRpCw",
+    "title": "赛博弑神者重铸九大容器，夺回被改造的人生",
+    "original": "Cyber Godslayer: Reforging the Nine Vessels",
+    "source": "Supreme Anime Drama",
+    "duration": 6566,
+    "durationText": "1:49:26",
+    "views": 498,
+    "age": "16 小时前",
+    "published": "2026-08-28",
+    "tags": [
+      "弑神"
+    ],
+    "score": 87,
+    "hook": "“赛博弑神者重铸九大容器，夺回被改造的人生”提供清晰的身份或能力反差，适合做开场钩子。",
+    "rise": "先让主角遭遇具体阻碍，再用一次可见变化证明故事规则。",
+    "promise": "新的能力、敌人或身份线索会把观众带向下一次冲突。"
+  },
+  {
+    "id": "32DMINCGEO0",
+    "title": "他从湮灭中归来，要碾碎神、魔与人间秩序",
+    "original": "Back From Oblivion: I Crush Gods, Devils, and the Mortal World S2",
+    "source": "Supreme Anime Drama",
+    "duration": 7202,
+    "durationText": "2:00:02",
+    "views": 376,
+    "age": "15 小时前",
+    "published": "2026-08-28",
+    "tags": [
+      "弑神"
+    ],
+    "score": 86,
+    "hook": "“他从湮灭中归来，要碾碎神、魔与人间秩序”提供清晰的身份或能力反差，适合做开场钩子。",
+    "rise": "先让主角遭遇具体阻碍，再用一次可见变化证明故事规则。",
+    "promise": "新的能力、敌人或身份线索会把观众带向下一次冲突。"
+  }
 ];
 const domesticPool=Array.isArray(window.DOMESTIC_VIDEOS)?window.DOMESTIC_VIDEOS:[];
 const overseasVideos=['Baichuan Comics','Supreme Anime Drama'].flatMap(source=>overseasPool.filter(video=>video.source===source).slice(0,10));
@@ -172,8 +512,8 @@ videos.forEach(v=>v.audience=audienceFor(v));
 videos.forEach(v=>{v.region=v.region||'海外';v.platform=v.platform||v.source;});
 let viewMode='focus';
 let storyboardSpecs={},storyNodes={},currentVideoId='';
-const storyboardReady=fetch('./storyboards.json?v=20260901-coverfix').then(response=>response.ok?response.json():Promise.reject()).then(data=>storyboardSpecs=data).catch(()=>storyboardSpecs={});
-const storyNodesReady=fetch('./story_nodes.json?v=20260901-coverfix').then(response=>response.ok?response.json():Promise.reject()).then(data=>storyNodes=data).catch(()=>storyNodes={});
+const storyboardReady=fetch('./storyboards.json?v=2026-09-07').then(response=>response.ok?response.json():Promise.reject()).then(data=>storyboardSpecs=data).catch(()=>storyboardSpecs={});
+const storyNodesReady=fetch('./story_nodes.json?v=2026-09-07-zh').then(response=>response.ok?response.json():Promise.reject()).then(data=>storyNodes=data).catch(()=>storyNodes={});
 const storyboardImageCache=new Map();
 const escapeHtml=value=>String(value??'').replace(/[&<>\"']/g,character=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[character]));
 const fallbackNodeFor=(v,index)=>({seconds:Math.round(Math.max(0,v.duration-5)*[.02,.09,.18,.31,.43,.57,.66,.76,.88,.97][index]),type:'视觉候选',description:'未取得字幕；此处为画面转场候选，点击原片人工核验剧情。',source:'visual-fallback'});
