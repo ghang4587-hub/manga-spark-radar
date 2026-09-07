@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="漫剧与动态漫热点样本浏览、题材筛选与开场钩子分析。">
-  <title>Manga Spark Radar · 漫剧热点抓取台</title>
+  <title>漫剧热点抓取台 · 国内外趋势雷达</title>
   <style>
     :root{
       --ink:#171816;--muted:#6f716b;--paper:#f4f1e9;--card:#fffdf8;--line:#d9d4c7;
@@ -30,20 +30,21 @@
     .eyebrow{color:var(--green-2);font-size:10px;font-weight:900;letter-spacing:1.8px}.hero h1{margin:7px 0 8px;font-size:clamp(30px,4vw,54px);line-height:1.05;letter-spacing:-2px}.hero p{max-width:720px;margin:0;color:var(--muted);font-size:15px}
     .freshness{position:relative;min-width:230px;padding:15px 16px;border-radius:16px;background:#fff5e7;border:1px solid #efc89c}.freshness b{display:block;color:#985527;font-size:12px}.freshness span{display:block;margin-top:4px;color:#826852;font-size:11px}.freshness button{margin-top:10px;padding:0;border:0;background:none;color:#a04b1f;text-decoration:underline;cursor:pointer;font-size:11px}
     .toolbar{position:sticky;top:12px;z-index:10;display:flex;gap:10px;flex-wrap:wrap;margin:18px 0;padding:12px;border:1px solid var(--line);border-radius:18px;background:#f4f1e9e8;backdrop-filter:blur(14px)}
+    .view-switch{display:flex;gap:7px;flex-wrap:wrap;margin:18px 0 0}.view-switch button{border:1px solid var(--line);border-radius:11px;background:var(--card);padding:9px 12px;color:var(--muted);cursor:pointer;font-size:12px}.view-switch button.active{border-color:var(--green-2);background:var(--green);color:#fff}.view-switch button span{margin-left:5px;font-size:10px;opacity:.8}
     .search{position:relative;flex:1;min-width:250px}.search:before{content:"⌕";position:absolute;left:13px;top:8px;color:var(--muted);font-size:18px}.search input,select{height:42px;border:1px solid var(--line);border-radius:12px;background:var(--card);outline:none}.search input{width:100%;padding:0 14px 0 38px}.search input:focus,select:focus{border-color:var(--green-2);box-shadow:0 0 0 3px #25736118}select{padding:0 34px 0 12px;color:#565851}
     .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 25px}.stat{padding:18px;border:1px solid var(--line);border-radius:18px;background:var(--card)}.stat label{color:var(--muted);font-size:11px}.stat strong{display:block;margin:4px 0 1px;font-size:28px;letter-spacing:-1px}.stat small{color:var(--green-2)}
     .section-head{display:flex;justify-content:space-between;align-items:center;margin:0 0 12px}.section-head h2{margin:0;font-size:18px}.section-head span{color:var(--muted);font-size:11px}
     .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:15px}
     .card{overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);background:var(--card);box-shadow:0 5px 20px rgba(32,36,28,.04);transition:transform .2s,border-color .2s,box-shadow .2s;cursor:pointer}
     .card:hover{transform:translateY(-3px);border-color:#9bac91;box-shadow:var(--shadow)}
-    .cover{position:relative;aspect-ratio:16/9;overflow:hidden;background:#d8ddd5}.cover img{width:100%;height:100%;display:block;object-fit:cover;transition:transform .35s}.card:hover .cover img{transform:scale(1.035)}.cover:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 56%,#101510b8)}
+    .cover{position:relative;aspect-ratio:16/9;overflow:hidden;background:#d8ddd5}.cover img{width:100%;height:100%;display:block;object-fit:cover;transition:transform .35s}.card:hover .cover img{transform:scale(1.035)}.cover:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 56%,#101510b8)}.cover-missing:before{content:"封面暂不可用";position:absolute;inset:0;display:grid;place-items:center;color:#617267;font-weight:800;font-size:12px}
     .duration,.rank{position:absolute;z-index:2;bottom:10px;border-radius:7px;padding:3px 7px;font-size:10px;font-weight:800}.duration{right:10px;background:#101510d9;color:#fff}.rank{left:10px;background:var(--acid);color:#173b32}.rank.hot{background:var(--orange);color:#351308}.new-badge{position:absolute;z-index:2;right:10px;top:10px;padding:4px 8px;border-radius:999px;background:var(--acid);color:#173b32;font-size:10px;font-weight:900;box-shadow:0 4px 14px #10221e33}
     .content{padding:17px}.meta{display:flex;gap:7px;flex-wrap:wrap;align-items:center;color:var(--muted);font-size:10px}.dot{width:3px;height:3px;border-radius:50%;background:#a6aa9f}.content h3{margin:9px 0 4px;font-size:18px;line-height:1.25;letter-spacing:-.25px}.original{height:34px;overflow:hidden;color:#85877f;font-size:10px;line-height:1.35}
     .tags{display:flex;gap:5px;flex-wrap:wrap;margin:11px 0}.tag{padding:3px 7px;border-radius:7px;background:#e7eee8;color:#285649;font-size:10px}.tag:nth-child(2){background:#f3e8da;color:#88522e}.tag:nth-child(3){background:#ece8f4;color:#5c4e7c}.tag.audience{background:#e8edf4;color:#41566f}.synopsis{margin-top:10px;padding:10px 11px;border-radius:11px;background:#f0efe9}.synopsis b{display:block;margin-bottom:3px;color:var(--green-2);font-size:10px;letter-spacing:.5px}.synopsis p{display:-webkit-box;overflow:hidden;margin:0;color:#61635d;font-size:11px;line-height:1.45;-webkit-box-orient:vertical;-webkit-line-clamp:2}
     .hook{min-height:56px;padding:10px 11px;border-left:3px solid var(--orange);border-radius:0 10px 10px 0;background:#f8f2e8;color:#50524d;font-size:12px}.hook b{color:var(--red)}
     .foot{display:flex;justify-content:space-between;align-items:center;margin-top:13px}.watch{border:0;border-radius:10px;background:var(--green);color:#fff;padding:8px 11px;cursor:pointer;font-size:11px}.watch:hover{background:var(--green-2)}.score{color:#7a5a23;font-size:10px;font-weight:800}
     .empty{grid-column:1/-1;padding:45px;text-align:center;border:1px dashed #aaa99f;border-radius:18px;color:var(--muted)}
-    .modal{display:none;position:fixed;inset:0;z-index:50;padding:22px;background:#10221ed9;place-items:center}.modal.show{display:grid}.dialog{width:min(1080px,100%);max-height:92vh;overflow:auto;border-radius:24px;background:var(--card);box-shadow:0 30px 80px #07161277}.dialog-head{position:sticky;top:0;z-index:4;display:flex;justify-content:space-between;gap:20px;align-items:flex-start;padding:20px 22px;border-bottom:1px solid var(--line);background:#fffdf8f5;backdrop-filter:blur(12px)}.dialog-head h2{margin:4px 0 0;font-size:21px;line-height:1.25}.close{border:0;background:transparent;font-size:25px;cursor:pointer}.dialog-body{padding:20px 22px 25px}.player{aspect-ratio:16/9;overflow:hidden;border-radius:16px;background:#0f1815}.player iframe{width:100%;height:100%;border:0}.player-notice{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:9px;padding:10px 12px;border:1px solid #e8cda6;border-radius:10px;background:#fff8eb;color:#6a5946;font-size:11px;line-height:1.4}.player-notice a{flex:0 0 auto;color:var(--green-2);font-weight:800;text-decoration:none}.player-notice a:hover{text-decoration:underline}.modal-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0;color:var(--muted);font-size:11px}.modal-meta a{color:var(--green-2)}
+    .modal{display:none;position:fixed;inset:0;z-index:50;padding:22px;background:#10221ed9;place-items:center}.modal.show{display:grid}.dialog{width:min(1080px,100%);max-height:92vh;overflow:auto;border-radius:24px;background:var(--card);box-shadow:0 30px 80px #07161277}.dialog-head{position:sticky;top:0;z-index:4;display:flex;justify-content:space-between;gap:20px;align-items:flex-start;padding:20px 22px;border-bottom:1px solid var(--line);background:#fffdf8f5;backdrop-filter:blur(12px)}.dialog-head h2{margin:4px 0 0;font-size:21px;line-height:1.25}.close{border:0;background:transparent;font-size:25px;cursor:pointer}.dialog-body{padding:20px 22px 25px}.player{aspect-ratio:16/9;overflow:hidden;border-radius:16px;background:#0f1815}.player iframe{width:100%;height:100%;border:0}.source-player{height:100%;display:grid;place-content:center;gap:8px;padding:25px;text-align:center;background:#e9f0eb;color:#385a4d}.source-player b{font-size:17px}.source-player p{margin:0;color:#647269;font-size:12px}.source-player a{color:var(--green-2);font-weight:800;text-decoration:none}.player-notice{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:9px;padding:10px 12px;border:1px solid #e8cda6;border-radius:10px;background:#fff8eb;color:#6a5946;font-size:11px;line-height:1.4}.player-notice a{flex:0 0 auto;color:var(--green-2);font-weight:800;text-decoration:none}.player-notice a:hover{text-decoration:underline}.modal-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0;color:var(--muted);font-size:11px}.modal-meta a{color:var(--green-2)}
     .diagnosis{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:15px}.diagnosis div{padding:13px;border-radius:13px;background:#eef1e9}.diagnosis label{display:block;color:var(--green-2);font-size:10px;font-weight:900}.diagnosis p{margin:5px 0 0;font-size:12px}.detail-section{margin-top:18px}.detail-head{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:9px}.detail-head h3{margin:0;font-size:14px}.detail-head span{color:var(--muted);font-size:10px}.timeline{display:flex;gap:10px;overflow-x:auto;padding:2px 1px 10px;scroll-snap-type:x proximity}.moment{flex:0 0 190px;min-width:190px;scroll-snap-align:start;cursor:pointer}.moment time{display:block;margin-bottom:5px;color:var(--green-2);font-size:11px;font-weight:900}.frame-shot{position:relative;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--line);border-radius:11px;background:#d8ddd5 center/cover no-repeat;box-shadow:0 5px 15px #14271f17}.frame-shot canvas,.frame-shot img{display:block;width:100%;height:100%;object-fit:cover}.frame-play{position:absolute;right:7px;bottom:7px;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#0e211ccc;color:#fff;font-size:9px}.moment p{margin:6px 0 0;color:#62645e;font-size:10px;line-height:1.35}.moment:hover .frame-shot,.moment.active .frame-shot{border-color:var(--green-2);box-shadow:0 0 0 2px #25736122}.flow-panel{margin-top:16px;padding:14px;border:1px solid #b9c9bf;border-radius:16px;background:#edf3ee}.flow-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.flow-head b{font-size:13px}.flow-head span{color:var(--muted);font-size:10px}.flow-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.flow-step{padding:10px;border-radius:10px;background:#fffdf8}.flow-step label{display:block;color:var(--green-2);font-size:9px;font-weight:900}.flow-step p{margin:4px 0 0;font-size:11px}.buy-tip{margin-top:14px;padding:14px;border-radius:13px;background:#e8f0d4;border:1px solid #c5d693;font-size:12px}.buy-tip b{display:block;margin-bottom:4px;color:#3d5b1d}.notice{margin-top:12px;padding:14px;border-radius:13px;background:#fff2df;border:1px solid #efcfaa;font-size:12px}.notice b{display:block;color:#914d22;margin-bottom:4px}
     .update-panel{display:none;margin:0 0 18px;padding:18px;border:1px solid #efc89c;border-radius:18px;background:#fff5e7}.update-panel.show{display:block}.update-panel h2{margin:0 0 6px;font-size:16px}.update-panel p{margin:5px 0;color:#665a4f;font-size:12px}.update-panel code{padding:1px 5px;border-radius:5px;background:#eee5d9}
     .moment{flex-basis:220px;min-width:220px}.moment p{min-height:49px}.moment p b{display:block;margin-bottom:2px;color:var(--red);font-size:10px}.moment p span{display:block;display:-webkit-box;overflow:hidden;-webkit-box-orient:vertical;-webkit-line-clamp:3}
@@ -54,26 +55,28 @@
 <body>
 <div class="shell">
   <aside>
-    <div class="brand"><div class="mark">漫</div><div><b>Manga Spark Radar</b><small>COMIC DRAMA INTELLIGENCE</small></div></div>
-    <nav class="nav"><button class="active">热点样本 <span>30</span></button><button>题材结构</button><button>开场钩子</button><button>来源频道</button></nav>
-    <div class="strategy"><label>本次抓取口径</label><p>英文配音动态漫 / 漫剧长视频；优先观察“系统、重生、末日、修仙、身份反转”五类高频包装。</p></div>
-    <div class="source-note">公开来源：<a href="https://www.youtube.com/@BaichuanComics/videos" target="_blank" rel="noreferrer">Baichuan Comics</a>、<a href="https://www.youtube.com/@Supreme-AnimeDrama/videos" target="_blank" rel="noreferrer">Supreme Anime Drama</a><br>最近一次快照：<span id="snapshotDate">2026-09-01</span></div>
+    <div class="brand"><div class="mark">漫</div><div><b>漫剧趋势雷达</b><small>漫剧趋势分析</small></div></div>
+    <nav class="nav"><button class="active">热点样本 <span id="navSampleCount">40</span></button><button>题材结构</button><button>开场钩子</button><button>来源平台</button></nav>
+    <div class="strategy"><label>本次抓取口径</label><p>国内外漫剧公开样本；国内侧重标题与结构，海外 YouTube 保留字幕语义与十节点 storyboard。</p></div>
+    <div class="source-note">公开来源：<a href="https://www.youtube.com/@BaichuanComics/videos" target="_blank" rel="noreferrer">Baichuan Comics</a>、<a href="https://www.youtube.com/@Supreme-AnimeDrama/videos" target="_blank" rel="noreferrer">Supreme Anime Drama</a>、<a href="https://www.bilibili.com" target="_blank" rel="noreferrer">B站</a>、<a href="https://www.iqiyi.com" target="_blank" rel="noreferrer">爱奇艺</a><br>最近一次快照：<span id="snapshotDate">2026-09-01</span></div>
   </aside>
   <main>
     <section class="hero">
-      <div><div class="eyebrow">OVERSEAS MANHUA / MOTION COMIC RADAR · <span id="snapshotDateHero">2026.09.01</span></div><h1>漫剧热点抓取台</h1><p>从真实公开频道样本中，快速筛出适合海外发行与买量拆解的动态漫题材、标题结构和开场承诺。</p></div>
-      <div class="freshness"><b>● 已配置每周自动更新</b><span>固定 30 条；每周筛入新热门，并剔除不可播放或低播放样本。</span><button id="updateHelp" type="button">查看周更规则</button></div>
+      <div><div class="eyebrow">国内外漫剧趋势雷达 · <span id="snapshotDateHero">2026.09.01</span></div><h1>漫剧热点抓取台</h1><p>从国内外公开平台样本中，筛出适合创策参考的题材、标题结构、受众信号与开场承诺。</p></div>
+      <div class="freshness"><b>● 已配置每周自动更新</b><span>40 条样本池；每周补入国内外新热门，并剔除下架或低价值样本。</span><button id="updateHelp" type="button">查看周更规则</button></div>
     </section>
 
     <section id="updatePanel" class="update-panel" aria-live="polite">
-      <h2>周更规则：每周自动筛选 30 条</h2>
-      <p>GitHub Actions 每周一上午运行采集脚本，读取两条公开频道的 RSS 或频道视频页，先剔除不可播放、下架或需要登录的视频。</p>
-      <p>候选按“本周新发布优先 + 播放量 / 视频新鲜度”排序，保留固定 30 条；播放量较低的旧样本会被替换。更新后自动提交并由 GitHub Pages 发布。</p>
+      <h2>周更规则：40 条样本池，16 条本周重点</h2>
+      <p>每周一更新海外 YouTube 公开候选，并保留国内平台的合规公开字段；先剔除明确下架或不可访问的内容。</p>
+      <p>首页展示国内 8 条、海外 8 条本周重点；深度跟踪展示国内 4 条、海外 4 条；完整样本池固定 40 条，低播放旧样本只在同区域有更高价值候选时替换。</p>
     </section>
 
+    <div class="view-switch" role="tablist" aria-label="样本视图"><button class="active" data-view="focus" role="tab" aria-selected="true">本周重点 <span>16</span></button><button data-view="deep" role="tab" aria-selected="false">深度跟踪 <span>8</span></button><button data-view="all" role="tab" aria-selected="false">完整样本池 <span>40</span></button></div>
     <section class="toolbar" aria-label="筛选工具">
       <div class="search"><input id="search" type="search" placeholder="搜索中文标题、英文标题、题材或钩子…"></div>
-      <select id="source" aria-label="来源频道"><option value="all">全部来源</option><option value="Baichuan Comics">Baichuan Comics</option><option value="Supreme Anime Drama">Supreme Anime Drama</option></select>
+      <select id="region" aria-label="地域"><option value="all">全部地域</option><option value="国内">国内</option><option value="海外">海外</option></select>
+      <select id="source" aria-label="来源平台"><option value="all">全部平台</option><option value="B站">B站</option><option value="爱奇艺">爱奇艺</option><option value="Baichuan Comics">Baichuan Comics</option><option value="Supreme Anime Drama">Supreme Anime Drama</option></select>
       <select id="theme" aria-label="题材"><option value="all">全部题材</option><option value="系统">系统</option><option value="末日">末日</option><option value="修仙">修仙</option><option value="重生">重生 / 穿越</option><option value="异兽">异兽进化</option></select>
       <select id="audience" aria-label="受众结构"><option value="all">全部受众结构</option><option value="male">男频向</option><option value="female">女频向</option><option value="neutral">中性待判</option></select>
       <select id="length" aria-label="视频时长"><option value="all">任意时长</option><option value="short">45 分钟内</option><option value="medium">45–120 分钟</option><option value="long">120 分钟以上</option></select>
@@ -81,10 +84,10 @@
     </section>
 
     <section class="stats">
-      <div class="stat"><label>固定样本量</label><strong id="statSamples">30</strong><small>自动剔除不可播放与低播放样本</small></div>
-      <div class="stat"><label>近 7 天新样本</label><strong id="statFresh">0</strong><small>每周从公开频道候选中补入</small></div>
+      <div class="stat"><label>完整样本池</label><strong id="statSamples">40</strong><small>国内 20 · 海外 20</small></div>
+      <div class="stat"><label>本周重点</label><strong id="statFocus">16</strong><small>国内 8 · 海外 8</small></div>
       <div class="stat"><label>高潜标题钩子</label><strong id="statHooks">25</strong><small>编辑估分 ≥ 86</small></div>
-      <div class="stat"><label>压倒性母题</label><strong>系统</strong><small>升级机制直接写进标题</small></div>
+      <div class="stat"><label>深度跟踪</label><strong id="statDeep">8</strong><small>国内 4 · 海外 4</small></div>
     </section>
 
     <div class="section-head"><h2>值得先看的漫剧样本</h2><span id="resultCount"></span></div>
@@ -94,10 +97,10 @@
 
 <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="dialog">
-    <div class="dialog-head"><div><div class="eyebrow">TITLE & HOOK BREAKDOWN</div><h2 id="modalTitle"></h2></div><button id="close" class="close" aria-label="关闭">×</button></div>
+      <div class="dialog-head"><div><div class="eyebrow">标题与结构拆解</div><h2 id="modalTitle"></h2></div><button id="close" class="close" aria-label="关闭">×</button></div>
     <div class="dialog-body">
       <div id="player" class="player"></div>
-      <div class="player-notice"><span>若播放器显示“请登录”验证，请在 YouTube 原片页完成登录后播放。</span><a id="playerOpen" href="#" target="_blank" rel="noreferrer">在 YouTube 打开原片 ↗</a></div>
+      <div class="player-notice"><span id="playerNoticeText">若播放器显示“请登录”验证，请在 YouTube 原片页完成登录后播放。</span><a id="playerOpen" href="#" target="_blank" rel="noreferrer">打开来源原片 ↗</a></div>
       <div id="modalMeta" class="modal-meta"></div>
       <div id="diagnosis" class="diagnosis"></div>
       <section class="detail-section"><div class="detail-head"><h3>整条视频 · 十个剧情 / 冲突节点</h3><span>基于字幕语义识别；点击画面跳转整片对应位置</span></div><div id="timeline" class="timeline"></div></section>
@@ -108,9 +111,10 @@
   </div>
 </div>
 
+<script src="./data/domestic_samples.js?v=20260907"></script>
 <script>
 const DATA_SNAPSHOT='2026-09-01';
-const videos=[
+const overseasPool=[
   {id:'mTGf9pgdoLU',title:'诸神嘲笑他的低阶仙位，系统却召来三位神祇反杀',original:'Gods mock his low immortal rank. His system calls 3 mythical gods to counterattack all! ⚔️💥',source:'Baichuan Comics',duration:7299,durationText:'2:01:39',views:76,age:'13 小时前',published:'2026-08-28',tags:['系统','修仙','反击'],score:91,hook:'受辱身份与三神降临形成一步到位的量级反转。',rise:'先给低阶仙位的群体嘲讽，再用系统召唤抬高战力天花板。',promise:'观众会等待三位神祇如何逐个碾压轻视者。'},
   {id:'AKSWW4cGvvg',title:'兽潮席卷废土，吞噬系统让他进化成龙',original:'【P2】Beasts raid the ruined world. His devour system evolves him into a dragon to counterattack! 🐉',source:'Baichuan Comics',duration:7192,durationText:'1:59:52',views:150,age:'1 天前',published:'2026-08-27',tags:['末日','系统','异兽'],score:92,hook:'“废土生存 + 吞噬进化 + 化龙”连续给出三层爽点。',rise:'灾难先制造生存压力，吞噬机制把每次战斗都变成可见成长。',promise:'从弱小个体到龙形终局，升级路线非常明确。'},
   {id:'k-ben8q55uk',title:'他因保护女孩被嘲，亮出仙裔身份斩杀古神',original:'Foes mock him for protecting a girl. He reveals his immortal heir status & slays ancient gods! ⚔️💥',source:'Baichuan Comics',duration:4299,durationText:'1:11:39',views:166,age:'5 天前',published:'2026-08-23',tags:['身份反转','修仙','护美'],score:89,hook:'道德选择先建立好感，仙裔身份随后完成公开打脸。',rise:'“保护弱者”让主角先吃亏，再以隐藏血脉翻盘。',promise:'身份暴露后，他与古神的战力差如何被重新定义。'},
@@ -142,15 +146,22 @@ const videos=[
   {id:'s2mlkrsGPSU',title:'北境刀血未冷，覆灭烈士的最后后裔归来',original:'Blood Of The Northern Blade: The Last Scion of Fallen Martyrs',source:'Supreme Anime Drama',duration:16663,durationText:'4:37:43',views:2748,age:'3 天前',published:'2026-08-25',tags:['复仇','刀客','遗孤'],score:88,hook:'最后后裔、覆灭家族、北境之刀构成成熟复仇入口。',rise:'遗孤身份制造追杀，第一场拔刀则证明传承尚未断绝。',promise:'家族覆灭的真凶是谁，最后一刀为谁而留。'},
   {id:'JUlnl7_zqQ4',title:'懒惰领主只想摸鱼，却靠“偷懒”建成无敌帝国',original:'Lazy Lord: My “Slacking” Builds an Unstoppable Empire',source:'Supreme Anime Drama',duration:7633,durationText:'2:07:13',views:4808,age:'4 天前',published:'2026-08-24',tags:['系统','经营','反套路'],score:93,hook:'“偷懒 = 建国”规则反常识，标题即可传达完整爽点。',rise:'领地濒临崩溃，主角每次回避工作却意外触发高效奖励。',promise:'当帝国越做越大，他还能用多离谱的方法继续躺平。'}
 ];
+const domesticPool=Array.isArray(window.DOMESTIC_VIDEOS)?window.DOMESTIC_VIDEOS:[];
+const overseasVideos=['Baichuan Comics','Supreme Anime Drama'].flatMap(source=>overseasPool.filter(video=>video.source===source).slice(0,10));
+const videos=[...domesticPool.slice(0,20),...overseasVideos].slice(0,40);
 
 const $=id=>document.getElementById(id);
-const filters={search:$('search'),source:$('source'),theme:$('theme'),audience:$('audience'),length:$('length'),sort:$('sort')};
-const formatViews=n=>n>=10000?`${(n/10000).toFixed(1)}万`:n.toLocaleString('zh-CN');
+const filters={search:$('search'),region:$('region'),source:$('source'),theme:$('theme'),audience:$('audience'),length:$('length'),sort:$('sort')};
+const formatViews=n=>n==null?'':n>=10000?`${(n/10000).toFixed(1)}万`:n.toLocaleString('zh-CN');
+const metricFor=v=>v.metricLabel||(v.views==null?'站内样本':`${formatViews(v.views)} 次播放`);
 const formatDuration=seconds=>seconds<=2700?'45 分钟内':seconds<=7200?'45–120 分钟':'120 分钟以上';
 const formatTime=seconds=>seconds>=3600?`${Math.floor(seconds/3600)}:${String(Math.floor(seconds%3600/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`:`${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`;
 const audienceLabel=value=>value==='female'?'女频向':value==='male'?'男频向':'中性待判';
 const isFresh=v=>{const published=new Date(`${v.published}T00:00:00`);const age=Date.now()-published.getTime();return Number.isFinite(age)&&age>=0&&age<=7*864e5};
+const isDomestic=v=>v.region==='国内'||v.contentType==='domestic';
+const coverFor=v=>isDomestic(v)?`./assets/covers/domestic/${v.id}.jpg`:v.cover||`./assets/covers/${v.id}.jpg`;
 function audienceFor(v){
+  if(v.audience)return v.audience;
   const text=`${v.title} ${v.original}`.toLowerCase();
   if(/\b(she|her|girl|woman|queen)\b|她|女孩|女主/.test(text)&&!/my queen system|deadly queens/.test(text))return'female';
   if(/\b(he|his|him|lord|master|king|godslayer)\b|他|宗主|领主|武神|刀客|主宰/.test(text))return'male';
@@ -158,6 +169,8 @@ function audienceFor(v){
   return'neutral';
 }
 videos.forEach(v=>v.audience=audienceFor(v));
+videos.forEach(v=>{v.region=v.region||'海外';v.platform=v.platform||v.source;});
+let viewMode='focus';
 let storyboardSpecs={},storyNodes={},currentVideoId='';
 const storyboardReady=fetch('./storyboards.json?v=20260901-coverfix').then(response=>response.ok?response.json():Promise.reject()).then(data=>storyboardSpecs=data).catch(()=>storyboardSpecs={});
 const storyNodesReady=fetch('./story_nodes.json?v=20260901-coverfix').then(response=>response.ok?response.json():Promise.reject()).then(data=>storyNodes=data).catch(()=>storyNodes={});
@@ -203,6 +216,10 @@ function seekPlayer(seconds){
   const url=new URL(iframe.src);url.searchParams.set('start',String(seconds));url.searchParams.set('autoplay','1');iframe.src=url.toString();
 }
 function renderTimeline(v){
+  if(isDomestic(v)){
+    $('timeline').innerHTML='<div class="empty">国内平台当前只提供公开标题、封面、题材和来源字段；未取得可稳定读取的字幕与分镜，因此不伪造剧情节点。点击来源原片查看完整内容。</div>';
+    return;
+  }
   const spec=storyboardSpecs[v.id],fallback=`https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`;
   $('timeline').innerHTML=framePlanFor(v).map(node=>{
     const seconds=node.seconds,label=escapeHtml(node.type),description=escapeHtml(node.description);
@@ -226,45 +243,78 @@ function adaptationFor(v){
   if(v.tags.includes('复仇'))return'开场先让观众看清羞辱者与损失，再保留一张主角底牌；第一次反击只赢半步，为后续更大公开翻盘留空间。';
   return'把标题里的最低起点、核心机制和终局结果拆成三次递进 cut；前 60 秒至少兑现一次可见变化，避免只讲设定不出结果。';
 }
+function rankDefault(a,b){return b.score-a.score||new Date(b.published)-new Date(a.published)||(b.views||-1)-(a.views||-1)}
+function balancedSample(rows,size,perRegion){
+  const domestic=rows.filter(v=>v.region==='国内').slice(0,perRegion);
+  const overseas=rows.filter(v=>v.region==='海外').slice(0,perRegion);
+  return [...domestic,...overseas].slice(0,size).sort(rankDefault);
+}
+function viewRows(){
+  const ranked=videos.slice().sort(rankDefault);
+  if(viewMode==='focus')return balancedSample(ranked,16,8);
+  if(viewMode==='deep')return balancedSample(ranked,8,4);
+  return videos.slice();
+}
 function visibleVideos(){
-  const q=filters.search.value.trim().toLowerCase(),source=filters.source.value,theme=filters.theme.value,audience=filters.audience.value,length=filters.length.value;
-  const rows=videos.filter(v=>{
-    const text=[v.title,v.original,v.source,v.hook,...v.tags].join(' ').toLowerCase();
-    const lengthMatch=length==='all'||length==='short'&&v.duration<=2700||length==='medium'&&v.duration>2700&&v.duration<=7200||length==='long'&&v.duration>7200;
-    return(!q||text.includes(q))&&(source==='all'||v.source===source)&&(theme==='all'||v.tags.includes(theme))&&(audience==='all'||v.audience===audience)&&lengthMatch;
+  const q=filters.search.value.trim().toLowerCase(),region=filters.region.value,source=filters.source.value,theme=filters.theme.value,audience=filters.audience.value,length=filters.length.value;
+  const rows=viewRows().filter(v=>{
+    const text=[v.title,v.original,v.source,v.platform,v.region,v.hook,...v.tags].join(' ').toLowerCase();
+    const lengthMatch=length==='all'||v.duration>0&&(length==='short'&&v.duration<=2700||length==='medium'&&v.duration>2700&&v.duration<=7200||length==='long'&&v.duration>7200);
+    return(!q||text.includes(q))&&(region==='all'||v.region===region)&&(source==='all'||v.source===source)&&(theme==='all'||v.tags.includes(theme))&&(audience==='all'||v.audience===audience)&&lengthMatch;
   });
   const sort=filters.sort.value;
-  rows.sort((a,b)=>sort==='views'?b.views-a.views:sort==='hook'?b.score-a.score:sort==='duration'?b.duration-a.duration:new Date(b.published)-new Date(a.published)||b.views-a.views);
+  rows.sort((a,b)=>sort==='views'?(b.views??-1)-(a.views??-1):sort==='hook'?b.score-a.score:sort==='duration'?b.duration-a.duration:new Date(b.published)-new Date(a.published)||(b.views??-1)-(a.views??-1));
   return rows;
 }
+function cardMarkup(v,index){
+  const cover=coverFor(v);
+  const coverHtml=cover?`<img src="${cover}" alt="${escapeHtml(v.title)} 封面" loading="eager" decoding="async" fetchpriority="${index<8?'high':'auto'}" onerror="this.style.display='none';this.parentElement.classList.add('cover-missing')">`:'<div class="cover-missing" aria-label="封面暂不可用"></div>';
+  const action=isDomestic(v)?'打开来源与结构分析 ↗':'▶ 十节点观看与拆解';
+  return`<article class="card" data-id="${escapeHtml(v.id)}" tabindex="0" aria-label="查看 ${escapeHtml(v.title)}"><div class="cover">${coverHtml}${isFresh(v)?'<span class="new-badge">近 7 日新样本</span>':''}<span class="rank ${v.score>=92?'hot':''}">HOOK ${v.score}</span><span class="duration">${escapeHtml(v.durationText)}</span></div><div class="content"><div class="meta"><span>${escapeHtml(v.platform||v.source)}</span><span class="dot"></span><span>${escapeHtml(metricFor(v))}</span><span class="dot"></span><span>${escapeHtml(v.age)}</span></div><h3>${escapeHtml(v.title)}</h3><div class="original">${escapeHtml(v.original)}</div><div class="tags">${v.tags.map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join('')}<span class="tag audience">${audienceLabel(v.audience)}</span><span class="tag">${escapeHtml(v.region)}</span></div><div class="hook"><b>标题钩子 · </b>${escapeHtml(v.hook)}</div><div class="synopsis"><b>结构梗概</b><p>${escapeHtml(v.rise)} ${escapeHtml(v.promise)}</p></div><div class="foot"><button class="watch" data-open="${escapeHtml(v.id)}">${action}</button><span class="score">${v.duration?formatDuration(v.duration):'片长待核验'}</span></div></div></article>`;
+}
 function render(){
-  const rows=visibleVideos();
-  $('resultCount').textContent=`显示 ${rows.length} / ${videos.length} 条 · 数据采集于 ${DATA_SNAPSHOT}`;
-  $('grid').innerHTML=rows.length?rows.map((v,index)=>`<article class="card" data-id="${v.id}" tabindex="0" aria-label="查看 ${v.title}"><div class="cover"><img src="./assets/covers/${v.id}.jpg" data-fallback="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" onerror="if(this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback=''}" alt="${v.title} 封面" loading="eager" decoding="async" fetchpriority="${index<8?'high':'auto'}">${isFresh(v)?'<span class="new-badge">近 7 日新样本</span>':''}<span class="rank ${v.score>=92?'hot':''}">HOOK ${v.score}</span><span class="duration">${v.durationText}</span></div><div class="content"><div class="meta"><span>${v.source}</span><span class="dot"></span><span>${formatViews(v.views)} 次观看</span><span class="dot"></span><span>${v.age}</span></div><h3>${v.title}</h3><div class="original">${v.original}</div><div class="tags">${v.tags.map(t=>`<span class="tag">${t}</span>`).join('')}<span class="tag audience">${audienceLabel(v.audience)}</span></div><div class="hook"><b>标题钩子 · </b>${v.hook}</div><div class="synopsis"><b>结构梗概</b><p>${v.rise} ${v.promise}</p></div><div class="foot"><button class="watch" data-open="${v.id}">▶ 十节点观看与拆解</button><span class="score">${formatDuration(v.duration)}</span></div></div></article>`).join(''):'<div class="empty">没有匹配样本，请减少筛选条件。</div>';
+  const rows=visibleVideos(),base=viewRows(),viewLabel=viewMode==='focus'?'本周重点':viewMode==='deep'?'深度跟踪':'完整样本池';
+  $('resultCount').textContent=`显示 ${rows.length} / ${base.length} 条 · ${viewLabel} · 快照 ${DATA_SNAPSHOT}`;
+  $('grid').innerHTML=rows.length?rows.map(cardMarkup).join(''):'<div class="empty">没有匹配样本，请减少筛选条件。</div>';
 }
 function openVideo(id){
   const v=videos.find(x=>x.id===id);if(!v)return;
   currentVideoId=v.id;
   $('modalTitle').textContent=v.title;
-  $('player').innerHTML=`<iframe src="https://www.youtube.com/embed/${v.id}?autoplay=1&rel=0&playsinline=1" title="${v.title}" allow="autoplay; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>`;
-  $('playerOpen').href=watchUrlFor(v.id);
-  $('modalMeta').innerHTML=`<span>${v.source}</span><span>·</span><span>${v.durationText}</span><span>·</span><span>${formatViews(v.views)} 次观看</span><span>·</span><span>${v.age}</span><span>·</span><span>${audienceLabel(v.audience)}</span><a href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noreferrer">YouTube 原片 ↗</a>`;
+  if(isDomestic(v)){
+    $('player').innerHTML=`<div class="source-player"><b>国内平台来源页</b><p>当前页面只展示公开元数据和结构判断，播放与完整剧情请在来源平台查看。</p><a href="${v.sourceUrl}" target="_blank" rel="noreferrer">打开 ${v.platform} 来源页 ↗</a></div>`;
+    $('playerNoticeText').textContent='国内平台未提供可稳定嵌入的公开播放接口，页面不绕过登录、验证码或反爬限制。';
+    $('playerOpen').href=v.sourceUrl;$('playerOpen').textContent='打开来源原片 ↗';
+  }else{
+    $('player').innerHTML=`<iframe src="https://www.youtube.com/embed/${v.id}?autoplay=1&rel=0&playsinline=1" title="${escapeHtml(v.title)}" allow="autoplay; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>`;
+    $('playerNoticeText').textContent='若播放器显示“请登录”验证，请在 YouTube 原片页完成登录后播放。';
+    $('playerOpen').href=watchUrlFor(v.id);$('playerOpen').textContent='在 YouTube 打开原片 ↗';
+  }
+  const sourceLink=`<a href="${v.sourceUrl||watchUrlFor(v.id)}" target="_blank" rel="noreferrer">${escapeHtml(v.platform||v.source)} 原片 ↗</a>`;
+  $('modalMeta').innerHTML=`<span>${escapeHtml(v.platform||v.source)}</span><span>·</span><span>${escapeHtml(v.durationText)}</span><span>·</span><span>${escapeHtml(metricFor(v))}</span><span>·</span><span>${escapeHtml(v.age)}</span><span>·</span><span>${audienceLabel(v.audience)}</span><span>·</span><span>${escapeHtml(v.region)}</span>${sourceLink}`;
   $('diagnosis').innerHTML=`<div><label>01 · 起手矛盾</label><p>${v.hook}</p></div><div><label>02 · 升级路径</label><p>${v.rise}</p></div><div><label>03 · 留存承诺</label><p>${v.promise}</p></div>`;
   const flow=flowFor(v);
   $('flow').innerHTML=`<div class="flow-head"><b>用户心流体验</b><span>从观看者视角判断整片留存动力</span></div><div class="flow-grid"><div class="flow-step"><label>01 · 注意力</label><p>${flow.attention}</p></div><div class="flow-step"><label>02 · 情绪</label><p>${flow.emotion}</p></div><div class="flow-step"><label>03 · 信息差</label><p>${flow.gap}</p></div><div class="flow-step"><label>04 · 留存问题</label><p>${flow.retention}</p></div></div>`;
   $('adaptationTip').textContent=adaptationFor(v);
-  renderTimeline(v);Promise.all([storyboardReady,storyNodesReady]).then(()=>{if(currentVideoId===v.id)renderTimeline(v)});
-  $('editorialNote').textContent='画面来自 YouTube 公开 storyboard；时间点由字幕中的冲突、能力、身份与关系转折语义评分后选取，不是固定百分比采样。描述是线索摘录，不替代完整剧情核验。';
+  renderTimeline(v);if(!isDomestic(v))Promise.all([storyboardReady,storyNodesReady]).then(()=>{if(currentVideoId===v.id)renderTimeline(v)});
+  $('editorialNote').textContent=isDomestic(v)?'国内样本只使用平台公开标题、封面、题材标签、日期或播放字段；未取得稳定字幕和分镜时不生成剧情节点。':'画面来自 YouTube 公开 storyboard；时间点由字幕中的冲突、能力、身份与关系转折语义评分后选取，不是固定百分比采样。描述是线索摘录，不替代完整剧情核验。';
   $('modal').classList.add('show');document.body.style.overflow='hidden';
 }
 function closeModal(){currentVideoId='';$('modal').classList.remove('show');$('player').innerHTML='';document.body.style.overflow=''}
 Object.values(filters).forEach(el=>el.addEventListener(el===filters.search?'input':'change',render));
+ document.querySelectorAll('.view-switch [data-view]').forEach(button=>button.addEventListener('click',()=>{
+  viewMode=button.dataset.view;
+  document.querySelectorAll('.view-switch [data-view]').forEach(item=>{item.classList.toggle('active',item===button);item.setAttribute('aria-selected',item===button?'true':'false')});
+  render();
+}));
 $('grid').addEventListener('click',e=>{const id=e.target.closest('[data-open]')?.dataset.open||e.target.closest('.card')?.dataset.id;if(id)openVideo(id)});
 $('grid').addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.classList.contains('card')){e.preventDefault();openVideo(e.target.dataset.id)}});
 $('close').addEventListener('click',closeModal);$('modal').addEventListener('click',e=>{if(e.target===$('modal'))closeModal()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 $('updateHelp').addEventListener('click',()=>{$('updatePanel').classList.toggle('show');$('updatePanel').scrollIntoView({block:'center'})});
 $('statSamples').textContent=videos.length;
-$('statFresh').textContent=videos.filter(isFresh).length;
+$('statFocus').textContent=balancedSample(videos.slice().sort(rankDefault),16,8).length;
+$('statDeep').textContent=balancedSample(videos.slice().sort(rankDefault),8,4).length;
+$('navSampleCount').textContent=videos.length;
 $('snapshotDate').textContent=DATA_SNAPSHOT;
 $('snapshotDateHero').textContent=DATA_SNAPSHOT.replaceAll('-','.');
 $('statHooks').textContent=videos.filter(v=>v.score>=86).length;
