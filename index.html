@@ -58,11 +58,11 @@
     <div class="brand"><div class="mark">漫</div><div><b>漫剧趋势雷达</b><small>漫剧趋势分析</small></div></div>
     <nav class="nav"><button class="active">热点样本 <span id="navSampleCount">40</span></button><button>题材结构</button><button>开场钩子</button><button>来源平台</button></nav>
     <div class="strategy"><label>本次抓取口径</label><p>国内外漫剧公开样本；国内侧重标题与结构，海外 YouTube 保留字幕语义与十节点 storyboard。</p></div>
-    <div class="source-note">公开来源：<a href="https://www.youtube.com/@BaichuanComics/videos" target="_blank" rel="noreferrer">Baichuan Comics</a>、<a href="https://www.youtube.com/@Supreme-AnimeDrama/videos" target="_blank" rel="noreferrer">Supreme Anime Drama</a>、<a href="https://www.bilibili.com" target="_blank" rel="noreferrer">B站</a>、<a href="https://www.iqiyi.com" target="_blank" rel="noreferrer">爱奇艺</a><br>最近一次快照：<span id="snapshotDate">2026-09-07</span></div>
+    <div class="source-note">公开来源：<a href="https://www.youtube.com/@BaichuanComics/videos" target="_blank" rel="noreferrer">Baichuan Comics</a>、<a href="https://www.youtube.com/@Supreme-AnimeDrama/videos" target="_blank" rel="noreferrer">Supreme Anime Drama</a>、<a href="https://www.bilibili.com" target="_blank" rel="noreferrer">B站</a>、<a href="https://www.iqiyi.com" target="_blank" rel="noreferrer">爱奇艺</a><br>最近一次快照：<span id="snapshotDate">2026-09-14</span></div>
   </aside>
   <main>
     <section class="hero">
-      <div><div class="eyebrow">国内外漫剧趋势雷达 · <span id="snapshotDateHero">2026.09.07</span></div><h1>漫剧热点抓取台</h1><p>从国内外公开平台样本中，筛出适合创策参考的题材、标题结构、受众信号与开场承诺。</p></div>
+      <div><div class="eyebrow">国内外漫剧趋势雷达 · <span id="snapshotDateHero">2026.09.14</span></div><h1>漫剧热点抓取台</h1><p>从国内外公开平台样本中，筛出适合创策参考的题材、标题结构、受众信号与开场承诺。</p></div>
       <div class="freshness"><b>● 已配置每周自动更新</b><span>40 条样本池；每周补入国内外新热门，并剔除下架或低价值样本。</span><button id="updateHelp" type="button">查看周更规则</button></div>
     </section>
 
@@ -113,7 +113,7 @@
 
 <script src="./data/domestic_samples.js?v=20260907"></script>
 <script>
-const DATA_SNAPSHOT='2026-09-07';
+const DATA_SNAPSHOT='2026-09-14';
 const overseasPool=[
   {
     "id": "bjieTAhBaBk",
@@ -305,6 +305,24 @@ const overseasPool=[
     "promise": "新的能力、敌人或身份线索会把观众带向下一次冲突。"
   },
   {
+    "id": "s2mlkrsGPSU",
+    "title": "北境刀血未冷，覆灭烈士的最后后裔归来",
+    "original": "Blood Of The Northern Blade: The Last Scion of Fallen Martyrs",
+    "source": "Supreme Anime Drama",
+    "duration": 16663,
+    "durationText": "4:37:43",
+    "views": 2748,
+    "age": "3 天前",
+    "published": "2026-08-25",
+    "tags": [
+      "漫剧"
+    ],
+    "score": 90,
+    "hook": "“北境刀血未冷，覆灭烈士的最后后裔归来”提供清晰的身份或能力反差，适合做开场钩子。",
+    "rise": "先让主角遭遇具体阻碍，再用一次可见变化证明故事规则。",
+    "promise": "新的能力、敌人或身份线索会把观众带向下一次冲突。"
+  },
+  {
     "id": "MXF14LAcUj4",
     "title": "炼体者拒绝天命，用拳头轰穿整个天界",
     "original": "The Body Cultivator’s Rebellion: I Punch Through Heaven",
@@ -337,24 +355,6 @@ const overseasPool=[
     ],
     "score": 90,
     "hook": "“觉醒的 NPC 找到漏洞，开始重写整个世界法则”提供清晰的身份或能力反差，适合做开场钩子。",
-    "rise": "先让主角遭遇具体阻碍，再用一次可见变化证明故事规则。",
-    "promise": "新的能力、敌人或身份线索会把观众带向下一次冲突。"
-  },
-  {
-    "id": "s2mlkrsGPSU",
-    "title": "北境刀血未冷，覆灭烈士的最后后裔归来",
-    "original": "Blood Of The Northern Blade: The Last Scion of Fallen Martyrs",
-    "source": "Supreme Anime Drama",
-    "duration": 16663,
-    "durationText": "4:37:43",
-    "views": 2748,
-    "age": "3 天前",
-    "published": "2026-08-25",
-    "tags": [
-      "漫剧"
-    ],
-    "score": 90,
-    "hook": "“北境刀血未冷，覆灭烈士的最后后裔归来”提供清晰的身份或能力反差，适合做开场钩子。",
     "rise": "先让主角遭遇具体阻碍，再用一次可见变化证明故事规则。",
     "promise": "新的能力、敌人或身份线索会把观众带向下一次冲突。"
   },
@@ -512,8 +512,8 @@ videos.forEach(v=>v.audience=audienceFor(v));
 videos.forEach(v=>{v.region=v.region||'海外';v.platform=v.platform||v.source;});
 let viewMode='focus';
 let storyboardSpecs={},storyNodes={},currentVideoId='';
-const storyboardReady=fetch('./storyboards.json?v=2026-09-07').then(response=>response.ok?response.json():Promise.reject()).then(data=>storyboardSpecs=data).catch(()=>storyboardSpecs={});
-const storyNodesReady=fetch('./story_nodes.json?v=2026-09-07-zh').then(response=>response.ok?response.json():Promise.reject()).then(data=>storyNodes=data).catch(()=>storyNodes={});
+const storyboardReady=fetch('./storyboards.json?v=2026-09-14').then(response=>response.ok?response.json():Promise.reject()).then(data=>storyboardSpecs=data).catch(()=>storyboardSpecs={});
+const storyNodesReady=fetch('./story_nodes.json?v=2026-09-14-zh').then(response=>response.ok?response.json():Promise.reject()).then(data=>storyNodes=data).catch(()=>storyNodes={});
 const storyboardImageCache=new Map();
 const escapeHtml=value=>String(value??'').replace(/[&<>\"']/g,character=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[character]));
 const fallbackNodeFor=(v,index)=>({seconds:Math.round(Math.max(0,v.duration-5)*[.02,.09,.18,.31,.43,.57,.66,.76,.88,.97][index]),type:'视觉候选',description:'未取得字幕；此处为画面转场候选，点击原片人工核验剧情。',source:'visual-fallback'});
